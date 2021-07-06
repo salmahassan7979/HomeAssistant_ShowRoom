@@ -140,7 +140,7 @@ The masonry layout immitates the default layout of lovelace.
 - When a card is placed in the layout, it is put in the first column which has a total height of less than `min_height` units. \
   Otherwise it is put it the shortest column.
 
-![Masonry Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/mansory.PNG)
+![Masonry Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/Images/ScreenShots/mansory.PNG)
 
 The masonry layout accepts the following `layout` options (besides the ones mentioned above):
 |Option|Values|Description|Default
@@ -151,7 +151,7 @@ The masonry layout accepts the following `layout` options (besides the ones ment
 
 The horizontal layout will add each card to the next column, looping back to the first one when necessary:
 
-![Horizontal Layout](https://user-images.githubusercontent.com/1299821/111067632-7453ba00-84c5-11eb-942c-88dab6d1f19b.png)
+![Horizontal Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/Images/ScreenShots/horizontal.PNG)
 
 A `layout-break` card will cause the next card to be placed in the first column.
 
@@ -164,7 +164,7 @@ The horizontal layout accepts the following **card** `view_layout` options:
 
 The vertical layout will add each card to the same column as the previous one.
 
-![Vertical Layout](https://user-images.githubusercontent.com/1299821/111067990-17f19a00-84c7-11eb-905a-2c687e85e972.png)
+![Vertical Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/Images/ScreenShots/vertical.PNG)
 
 A `layout-break` card will cause the next card to be placed in the next column.
 
