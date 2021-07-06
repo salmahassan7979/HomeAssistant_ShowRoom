@@ -140,7 +140,7 @@ The masonry layout immitates the default layout of lovelace.
 - When a card is placed in the layout, it is put in the first column which has a total height of less than `min_height` units. \
   Otherwise it is put it the shortest column.
 
-![Masonry Layout](https://user-images.githubusercontent.com/1299821/111067510-f2639100-84c4-11eb-9ce1-b40cf1f13772.png)
+![Masonry Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/mansory.PNG)
 
 The masonry layout accepts the following `layout` options (besides the ones mentioned above):
 |Option|Values|Description|Default
