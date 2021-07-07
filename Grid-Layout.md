@@ -187,7 +187,7 @@ For the card `view_layout` options. the grid layout accepts any css grid propert
 
 There's no point in me trying to list all `grid-` options here. Instead see the excellent guide linked above.
 
-![Grid Layout](https://user-images.githubusercontent.com/1299821/111082577-4d1edc00-8509-11eb-80d1-2ecbdea7a085.gif)
+![Grid Layout](https://github.com/salmahassan7979/HomeAssistant_ShowRoom/blob/main/Images/ScreenShots/grid-layout.gif)
 
 <details>
 <summary>Yaml code</summary>
@@ -362,4 +362,4 @@ Example:
 
 ---
 
-<a href="https://www.buymeacoffee.com/uqD6KHCdJ" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
