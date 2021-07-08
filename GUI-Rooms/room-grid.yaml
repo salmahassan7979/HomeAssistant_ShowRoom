@@ -1,0 +1,261 @@
+  - title: outdoor
+    path: outdoor
+    type: 'custom:grid-layout'
+    panel: false
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 10% 80% 10%
+      grid-auto-rows: 'minmax(1fr,auto)'
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        ".       list    ."
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: 'minmax(1fr,auto)'
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "list     list    "
+
+            "devices2 devices2 "
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: 'minmax(1fr,auto)'
+          grid-template-areas: |
+            "sidebar   sidebar"
+            "list      list"
+
+            "footer    footer"
+    cards:
+      - type: 'custom:weather-card'
+        entity: weather.acs
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - view_layout:
+          grid-area: list
+        type: vertical-stack
+        cards:
+          - type: entities
+            style: |
+              ha-card {
+                background: none;
+                box-shadow: none;
+                }
+            entities:
+              - type: 'custom:paper-buttons-row'
+                buttons:
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: 'hass:lightbulb-group'
+                    style:
+                      button:
+                        background: 'rgba(255,255,255,.1)'
+                        box-shadow: >
+                          {% if is_state('input_boolean.dummy', 'on') %}
+
+                          0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px
+                          rgba(255,255,255,.5)
+
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        border-radius: 50px
+                        padding: 20px
+                        color: 'rgba(251, 125, 85,0.7)'
+                      icon:
+                        '--mdc-icon-size': 40px
+                    state_styles:
+                      '#lights':
+                        button:
+                          background: 'rgba(255,255,255,.5)'
+                          box-shadow: '0 0 15px rgba(255,255,255,.6)'
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#lights'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: 'hass:window-shutter-alert'
+                    style:
+                      button:
+                        background: 'rgba(255,255,255,.1)'
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                             0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: 'rgba(251, 125, 85,0.7)'
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#shutter'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: 'hass:air-conditioner'
+                    style:
+                      button:
+                        background: 'rgba(255,255,255,.1)'
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2),inset 0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: 'rgba(251, 125, 85,0.7)'
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#ac'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: 'hass:dots-horizontal-circle-outline'
+                    style:
+                      button:
+                        background: 'rgba(255,255,255,.1)'
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: 'rgba(251, 125, 85,0.7)'
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#more'
+                    hold_action:
+                      action: toggle
+          - type: 'custom:mod-card'
+            style: |
+              ha-card {
+                padding: 10px;
+                background: var( --ha-card-background, var(--card-background-color, white) );
+                border-radius: 30px;
+
+
+                  
+
+                  }
+            card:
+              type: 'custom:state-switch'
+              entity: hash
+              default: lights
+              transition: swap-left
+              transition_time: 250
+              states: null
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+          }            
+          .card-content {
+            padding: 0
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+
+           
+          }
+        entities:
+          - type: 'custom:paper-buttons-row'
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /testing-dashboard/setting/
+                icon: 'mdi:cogs'
+                style:
+                  button:
+                    background: 'rgba(255,255,255,0)'
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px
+                      rgba(255,255,255,.5)
+                    color: 'rgba(251, 125, 85,0.7)'
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /testing-dashboard/0/
+                icon: 'hass:home-export-outline'
+                style:
+                  button:
+                    background: 'rgba(255,255,255,0)'
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px
+                      rgba(255,255,255,.5)
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /testing-dashboard/scenario/
+                icon: 'hass:movie-open-outline'
+                style:
+                  button:
+                    transform: scale(1.05)
+                    background: 'rgba(255,255,255,0)'
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2), inset 0 0 10px
+                      rgba(255,255,255,.5)
+                    color: 'rgba(251, 125, 85,0.7)'
+                  icon:
+                    '--mdc-icon-size': 40px
