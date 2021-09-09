@@ -1,0 +1,382 @@
+
+  - icon: mdi:shield-lock-outline
+    title: Security
+    path: security
+    type: custom:grid-layout
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 10% 80% 10%
+      grid-auto-rows: minmax(1fr,auto)
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        ".       list    ."
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "list     list    "
+
+            "devices2 devices2 "
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar   sidebar"
+            "list      list"
+
+            "footer    footer"
+    badges: []
+    cards:
+      - type: custom:weather-card
+        entity: weather.mohamed_nasser_home
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+            box-shadow: none;
+          }            
+          .card-content {
+              bottom-padding: 15px;
+
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+            min-height:50px;
+
+           
+          }
+        entities:
+          - type: custom:paper-buttons-row
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/setting/
+                icon: mdi:cogs
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5);
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0/
+                icon: hass:home-export-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/scenario/
+                icon: hass:movie-open-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                  icon:
+                    '--mdc-icon-size': 40px
+      - view_layout:
+          grid-area: list
+        type: vertical-stack
+        cards:
+          - type: entities
+            style: |
+              ha-card {
+                background: none;
+                box-shadow: none;
+                }
+            entities:
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:shield-home
+                    style:
+                      button:
+                        background: rgba(255,255,255,.0)
+                        box-shadow: >
+                          {% if is_state('input_boolean.dummy', 'on') %}
+
+                          0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                          rgba(255,255,255,.5)
+
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        border-radius: 50px
+                        padding: 20px
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    state_styles:
+                      '#lights':
+                        button:
+                          background: rgba(255,255,255,.5)
+                          box-shadow: 0 0 15px rgba(255,255,255,.6)
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#arm'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:motion-sensor
+                    style:
+                      button:
+                        background: rgba(255,255,255,.0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                             0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#motion'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:cctv
+                    style:
+                      button:
+                        background: rgba(255,255,255,.0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#camera'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:dots-horizontal-circle-outline
+                    style:
+                      button:
+                        background: rgba(255,255,255,.0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#more'
+                    hold_action:
+                      action: toggle
+          - type: custom:mod-card
+            style: |
+              ha-card {
+                padding: 10px;
+                background: var( --ha-card-background, var(--card-background-color, white) );
+                border-radius: 30px;
+
+
+                  
+
+                  }
+            card:
+              type: custom:state-switch
+              entity: hash
+              default: arm
+              transition: swap-left
+              transition_time: 250
+              states:
+                arm:
+                  type: grid
+                  square: false
+                  columns: 1
+                  cards:
+                    - type: alarm-panel
+                      states:
+                        - arm_home
+                        - arm_away
+                      entity: alarm_control_panel.home_alarm
+                motion:
+                  type: grid
+                  square: false
+                  columns: 1
+                  cards:
+                    - type: entities
+                      entities:
+                        - entity: binary_sensor.cinema_room_ms_1_82
+                        - entity: binary_sensor.gym_ms_2_90
+                        - entity: binary_sensor.family_room_ms_3_96
+                        - entity: binary_sensor.garage_ms_4_104
+                        - entity: binary_sensor.stairs_ms_5_110
+                        - entity: binary_sensor.entrance_ms1_118
+                        - entity: binary_sensor.office_ms_2_124
+                        - entity: binary_sensor.lobby_ms_3_130
+                        - entity: binary_sensor.dining_ms_4_136
+                        - entity: binary_sensor.reception_ms_5_142
+                        - entity: binary_sensor.stairs_ms_6_148
+                        - entity: binary_sensor.corridor_corridor_motion_83
+                        - entity: binary_sensor.roof_stairs_roof_stairs_71
+                      title: Motion Sensor
+                camera:
+                  type: custom:layout-card
+                  layout_type: grid
+                  cards:
+                    - type: picture-entity
+                      entity: camera.camera_1
+                      camera_view: live
+                      camera_image: camera.camera_1
+                      view_layout:
+                        grid-area: cam1
+                    - type: picture-entity
+                      entity: camera.camera_2
+                      camera_image: camera.camera_2
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam2
+                    - type: picture-entity
+                      entity: camera.camera_3
+                      camera_image: camera.camera_3
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam3
+                    - type: picture-entity
+                      entity: camera.camera_4
+                      camera_image: camera.camera_4
+                      camera_view: auto
+                      view_layout:
+                        grid-area: cam4
+                    - type: picture-entity
+                      entity: camera.camera_5
+                      camera_image: camera.camera_5
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam5
+                    - type: picture-entity
+                      entity: camera.camera_6
+                      camera_image: camera.camera_6
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam6
+                    - type: picture-entity
+                      entity: camera.camera_7
+                      camera_image: camera.camera_7
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam7
+                    - type: picture-entity
+                      entity: camera.camera_8
+                      camera_image: camera.camera_8
+                      camera_view: live
+                      view_layout:
+                        grid-area: cam8
+                  layout:
+                    grid-gap: var(--custom-layout-card-padding)
+                    grid-auto-columns: 50% 50%
+                    grid-auto-rows: minmax(1fr,auto)
+                    grid-template-areas: |
+                      "cam1 cam2"
+                      "cam3 cam4"
+                      "cam5 cam6"
+                      "cam7 cam8"
+                    mediaquery:
+                      '(max-width: 800px)':
+                        grid-auto-columns: 100%
+                        grid-auto-rows: minmax(1fr,auto)
+                        grid-template-areas: |
+                          "cam1"
+                          "cam2"
+                          "cam3"
+                          "cam4"
+                          "cam5"
+                          "cam6"
+                          "cam7"
+                          "cam8"
+                      '(max-width: 1200px)':
+                        grid-gap: var(--custom-layout-card-padding)
+                        grid-auto-columns: 50% 50%
+                        grid-auto-rows: minmax(1fr,auto)
+                        grid-template-areas: |
+                          "cam1 cam2"
+                          "cam3 cam4"
+                          "cam5 cam6"
+                          "cam7 cam8"
