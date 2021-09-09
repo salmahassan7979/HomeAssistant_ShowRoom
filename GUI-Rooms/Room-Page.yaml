@@ -1,0 +1,1042 @@
+  - title: master room
+    path: master
+    type: custom:grid-layout
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 10% 80% 10%
+      grid-auto-rows: minmax(1fr,auto)
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        "sensors sensors sensors"
+        ".       list    ."
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "sensors  sensors"
+            "list     list    "
+
+            "devices2 devices2 "
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar   sidebar"
+            "sensors  sensors"
+            "list      list"
+
+            "footer    footer"
+    badges: []
+    cards:
+      - type: custom:weather-card
+        entity: weather.mohamed_nasser_home
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+            box-shadow: none;
+          }            
+          .card-content {
+              bottom-padding: 15px;
+
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+            min-height:50px;
+
+           
+          }
+        entities:
+          - type: custom:paper-buttons-row
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/setting/
+                icon: mdi:cogs
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5);
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0/
+                icon: hass:home-export-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/scenario/
+                icon: hass:movie-open-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                  icon:
+                    '--mdc-icon-size': 40px
+      - type: custom:layout-card
+        layout_type: grid
+        cards:
+          - type: custom:button-card
+            view_layout:
+              grid-area: motion
+            style: |
+              ha-card {
+                margin-top: 12px;
+              }
+            name: Button
+            icon: mdi:motion-sensor
+            size: 80%
+            color: auto
+            entity: input_boolean.dummy
+            show_name: false
+            show_state: false
+            show_label: false
+            tap_action:
+              action: more-info
+              haptic: light
+            hold_action:
+              action: none
+            styles:
+              card:
+                - '--ha-card-background': transparant
+                - box-shadow: none
+                - width: 30px
+                - height: 30px
+              img_cell:
+                - align-self: start
+                - text-align: start
+              custom_fields:
+                notification:
+                  - background-color: rgba(0,0,0,0.0)
+                  - color: white
+                  - border-radius: 50%
+                  - overflow: visible !important
+                  - position: absolute
+                  - left: 50%
+                  - bottom: 50%
+                  - height: 15px
+                  - width: 15px
+                  - font-size: 10px
+              icon:
+                - color: var(--header-text-color)
+            custom_fields:
+              notification: '&nbsp'
+            state:
+              - value: 'on'
+                styles:
+                  icon:
+                    - animation: blink 2s ease infinite
+          - type: custom:button-card
+            view_layout:
+              grid-area: flood
+            style: |
+              ha-card {
+                margin-top: 12px;
+              }
+            name: Button
+            icon: mdi:water
+            size: 80%
+            color: auto
+            entity: input_boolean.dummy
+            show_name: false
+            show_state: false
+            show_label: false
+            tap_action:
+              action: more-info
+            hold_action:
+              action: none
+            styles:
+              card:
+                - '--ha-card-background': transparant
+                - box-shadow: none
+                - width: 30px
+                - height: 30px
+              img_cell:
+                - align-self: start
+                - text-align: start
+              custom_fields:
+                notification:
+                  - background-color: rgba(0,0,0,0.0)
+                  - color: white
+                  - border-radius: 50%
+                  - overflow: visible !important
+                  - position: absolute
+                  - left: 50%
+                  - bottom: 50%
+                  - height: 15px
+                  - width: 15px
+                  - font-size: 10px
+              icon:
+                - color: var(--header-text-color)
+            custom_fields:
+              notification: '&nbsp'
+            state:
+              - value: 'on'
+                styles:
+                  icon:
+                    - animation: blink 2s ease infinite
+        layout:
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 90% 5% 5%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            ". flood motion"
+          mediaquery:
+            '(max-width: 800px)':
+              .: |
+                ha-card {
+
+                   background-color: yellow;
+                             }
+              grid-auto-columns: 80% 9% 5%
+              grid-auto-rows: minmax(1fr,auto)
+              grid-template-areas: |
+                ". flood motion"
+            '(max-width: 1200px)':
+              grid-gap: var(--custom-layout-card-padding)
+              grid-auto-columns: 80% 9% 5%
+              grid-auto-rows: minmax(1fr,auto)
+              grid-template-areas: |
+                ". flood motion"
+        view_layout:
+          grid-area: sensors
+      - view_layout:
+          grid-area: list
+        type: vertical-stack
+        cards:
+          - type: entities
+            style: |
+              ha-card {
+                background: none;
+                box-shadow: none;
+                }
+            entities:
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:lightbulb-group
+                    style:
+                      button:
+                        background: rgba(255,255,255,0)
+                        box-shadow: >
+                          {% if is_state('input_boolean.dummy', 'on') %}
+
+                          0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                          rgba(255,255,255,.5)
+
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        border-radius: 50px
+                        padding: 20px
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    state_styles:
+                      '#lights':
+                        button:
+                          background: rgba(255,255,255,.5)
+                          box-shadow: 0 0 15px rgba(255,255,255,.6)
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#lights'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:blinds
+                    style:
+                      button:
+                        background: rgba(255,255,255,0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                             0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#shutter'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:air-conditioner
+                    style:
+                      button:
+                        background: rgba(255,255,255,0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#ac'
+                    hold_action:
+                      action: toggle
+                  - entity: input_boolean.dummy
+                    name: false
+                    icon: hass:dots-horizontal-circle-outline
+                    style:
+                      button:
+                        background: rgba(255,255,255,0)
+                        border-radius: 50px
+                        padding: 20px
+                        box-shadow: |
+                          {% if is_state('input_boolean.dummy', 'on') %}
+                           0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px rgba(255,255,255,.5)
+                          {% else %}
+                            0px 8px 15px rgba(0, 0, 0, 0.2);
+                          {% endif %}
+                        color: rgba(251, 125, 85,0.7)
+                      icon:
+                        '--mdc-icon-size': 40px
+                    tap_action:
+                      action: navigate
+                      navigation_path: '#more'
+                    hold_action:
+                      action: toggle
+          - type: custom:mod-card
+            style: |
+              ha-card {
+
+
+                background: var( --ha-card-background, var(--card-background-color, white) );
+                border-radius: 30px;
+
+
+                  
+
+                  }
+            card:
+              type: custom:state-switch
+              entity: hash
+              default: lights
+              transition: swap-left
+              transition_time: 250
+              states:
+                lights:
+                  type: grid
+                  square: false
+                  columns: 1
+                  cards:
+                    - type: custom:homekit-card
+                      style: |
+                        :host {
+
+                             --tile-name-text-color: rgba(255,255, 255, 0.8);
+                             --tile-background: rgba(0,0,0,.4);
+                             background-size: cover;
+                             --tile-state-text-color: rgba(255,255, 255, 0.8);
+                             --tile-on-background: var(--button-card-light-color);
+                             --tile-border-radius: 12px;
+                             --tile-icon-size: 60px;
+                             --tile-image-radius: 100%
+                             --tile-width-mobile: 120px;
+                             --tile-height-mobile: 100px;
+                             --slider-width: 120px;
+                             --slider-height: 120px;
+
+                                    }
+                      useBrightness: true
+                      useTemperature: true
+                      titleColor: var(--primary-text-color, white)
+                      enableColumns: true
+                      statePositionTop: true
+                      horizontalScroll: true
+                      tileHoldAnimation: true
+                      rows:
+                        - row: 1
+                          columns:
+                            - column: 1
+                              tileOnRow: 4
+                              entities:
+                                - title: Master Room Lights
+                                  popup:
+                                    type: custom:light-popup-card
+                                    scenesInARow: 2
+                                    brightnessWidth: 130px
+                                    brightnessHeight: 350px
+                                    switchWidth: 110px
+                                    switchHeight: 300px
+                                  entities:
+                                    - entity: input_boolean.dummy
+                                      name: Main Light
+                                      image: /local/iconHA/MainLight1-On.png
+                                      offImage: /local/iconHA/MainLight1-Off.png
+                                    - entity: input_boolean.dummy
+                                      name: Entrance
+                                      image: /local/iconHA/LobbySpots-On.png
+                                      offImage: /local/iconHA/LobbySpots-Off.png
+                                    - entity: input_boolean.dummy
+                                      name: Bed indirect 1
+                                      image: /local/iconHA/LobbySpots-On.png
+                                      offImage: /local/iconHA/LobbySpots-Off.png
+                                    - entity: input_boolean.dummy
+                                      name: Bed indirect 2
+                                      image: /local/iconHA/LobbySpots-On.png
+                                      offImage: /local/iconHA/LobbySpots-Off.png
+                                    - entity: input_boolean.dummy
+                                      name: Indirect light 1
+                                      image: /local/iconHA/LobbySpots-On.png
+                                      offImage: /local/iconHA/LobbySpots-Off.png
+                                    - entity: input_boolean.dummy
+                                      name: Indirect light 2
+                                      image: /local/iconHA/LobbySpots-On.png
+                                      offImage: /local/iconHA/LobbySpots-Off.png
+                ac:
+                  type: thermostat
+                  name: Master Room AC
+                  entity: input_boolean.dummy
+                more:
+                  type: grid
+                  square: false
+                  columns: 1
+                  cards:
+                    - type: custom:homekit-card
+                      style: |
+                        :host {
+
+                               --tile-name-text-color: rgba(255,255, 255, 0.8);
+                               --tile-background: rgba(0,0,0,0.4);
+                               background-size: cover;
+                               --tile-state-text-color: rgba(255,255, 255, 0.8);
+                               --tile-on-background: var(--button-card-light-color);
+                               --tile-border-radius: 12px;
+                               --tile-icon-size: 60px;
+                               --tile-image-radius: 100%
+                               --tile-width-mobile: 120px;
+                               --tile-height-mobile: 100px;
+
+
+                                    }
+                      title: Entrance
+                      useBrightness: true
+                      useTemperature: true
+                      titleColor: var(--primary-text-color, white)
+                      enableColumns: true
+                      statePositionTop: true
+                      horizontalScroll: true
+                      tileHoldAnimation: true
+                      rows:
+                        - row: 1
+                          columns:
+                            - column: 1
+                              entities:
+                                - title: Sensors
+                                  entities:
+                                    - card: custom:button-card
+                                      noPadding: true
+                                      cardStyle: |
+                                        :host {
+                                          display: flex;
+                                          
+                                          height: 100%; /* Fallback for browsers that do not support Custom Properties */
+
+                                         
+                                        }
+                                      cardOptions:
+                                        entity: input_boolean.dummy
+                                        color_type: card
+                                        tab_action: null
+                                        show_entity_picture: true
+                                        show_icon: false
+                                        show_state: true
+                                        show_name: true
+                                        name: Master Flood
+                                        entity_picture: /local/iconHA/FloodSensor-Icon.png
+                                        size: 60%
+                                        state:
+                                          - value: 'on'
+                                            color: rgba(207,208,209,0.8)
+                                            custom_fields:
+                                              notification: ''
+                                          - value: 'off'
+                                            color: rgba(0,0,0,1)
+                                          - value: unavailable
+                                            color: rgba(0,0,0,1)
+                                        styles:
+                                          name:
+                                            - position: absolute
+                                            - top: '-39px'
+                                            - left: 10px
+                                            - font-weight: bold
+                                            - font-size: 14px
+                                          state:
+                                            - position: absolute
+                                            - font-size: 14px
+                                            - top: '-25px'
+                                            - left: 10px
+                                          entity_picture:
+                                            - position: absolute
+                                            - left: 10px
+                                          card:
+                                            - padding: 5px 5px
+                                            - border-radius: 10%
+                                            - height: 125px
+                                            - width: 120px
+                                          grid:
+                                            - position: relative
+                                          custom_fields:
+                                            notification:
+                                              - background-image: url("/local/iconHA/Water-Icon.png")
+                                              - background-position: center
+                                              - background-repeat: no-repeat
+                                              - background-size: 60px 60px
+                                              - animation: blink 2s ease infinite
+                                              - position: absolute
+                                              - left: 35%
+                                              - top: 15%
+                                              - height: 60px
+                                              - width: 60px
+                                              - font-size: 8px
+                                              - line-height: 20px
+                                    - card: custom:button-card
+                                      noPadding: true
+                                      cardStyle: |
+                                        :host {
+                                          display: flex;
+                                          
+                                          height: 100%; /* Fallback for browsers that do not support Custom Properties */
+
+                                         
+                                        }
+                                      cardOptions:
+                                        entity: input_boolean.dummy
+                                        color_type: card
+                                        tab_action: null
+                                        show_entity_picture: true
+                                        show_icon: false
+                                        show_state: true
+                                        show_name: true
+                                        name: Master M.S
+                                        size: 60%
+                                        state:
+                                          - value: 'on'
+                                            entity_picture: /local/iconHA/MotionSensor-On.png
+                                            color: rgba(207,208,209,0.8)
+                                            custom_fields:
+                                              notification: ''
+                                          - value: 'off'
+                                            entity_picture: /local/iconHA/MotionSensor-Off.png
+                                            color: rgba(0,0,0,1)
+                                          - value: unavailable
+                                            entity_picture: /local/iconHA/MotionSensor-Off.png
+                                            color: rgba(0,0,0,1)
+                                        styles:
+                                          name:
+                                            - position: absolute
+                                            - top: '-39px'
+                                            - left: 10px
+                                            - font-weight: bold
+                                            - font-size: 14px
+                                          state:
+                                            - position: absolute
+                                            - font-size: 14px
+                                            - top: '-25px'
+                                            - left: 10px
+                                          entity_picture:
+                                            - position: absolute
+                                            - top: 8px
+                                            - left: 10px
+                                          card:
+                                            - padding: 5px 5px
+                                            - border-radius: 10%
+                                            - height: 125px
+                                            - width: 120px
+                                          grid:
+                                            - position: relative
+                                          custom_fields:
+                                            notification:
+                                              - background-image: url("/local/iconHA/Move.png")
+                                              - background-position: center
+                                              - background-repeat: no-repeat
+                                              - background-size: 60px 60px
+                                              - animation: blink 2s ease infinite
+                                              - position: absolute
+                                              - left: 35%
+                                              - top: 15%
+                                              - height: 60px
+                                              - width: 60px
+                                              - font-size: 8px
+                                              - line-height: 20px
+                shutter:
+                  type: grid
+                  square: false
+                  columns: 1
+                  cards:
+                    - type: custom:homekit-card
+                      style: |
+                        :host {
+
+                             --tile-name-text-color: rgba(255,255, 255, 0.8);
+                             --tile-background: rgba(0,0,0,.4);
+                             background-size: cover;
+                             --tile-state-text-color: rgba(255,255, 255, 0.8);
+                             --tile-on-background: var(--button-card-light-color);
+                             --tile-border-radius: 12px;
+                             --tile-icon-size: 60px;
+                             --tile-image-radius: 100%
+                             --tile-width-mobile: 120px;
+                             --tile-height-mobile: 100px;
+                             --slider-width: 120px;
+                             --slider-height: 120px;
+
+
+                                    }
+                      useBrightness: true
+                      useTemperature: true
+                      titleColor: >-
+                        var( --ha-card-background, var(--card-background-color,
+                        white) )
+                      enableColumns: true
+                      statePositionTop: true
+                      horizontalScroll: true
+                      tileHoldAnimation: true
+                      rows:
+                        - row: 1
+                          columns:
+                            - column: 1
+                              tileOnRow: 4
+                              entities:
+                                - entities:
+                                    - card: custom:button-card
+                                      noPadding: true
+                                      cardStyle: |
+                                        :host {
+                                          display: flex;
+
+                                          height: 100%; /* Fallback for browsers that do not support Custom Properties */
+
+
+                                        }
+                                      cardOptions:
+                                        entity: input_boolean.dummy
+                                        color_type: card
+                                        name: Balcony Shutter
+                                        show_entity_picture: true
+                                        show_icon: false
+                                        show_state: true
+                                        show_name: true
+                                        size: 60%
+                                        state:
+                                          - value: open
+                                            entity_picture: /local/iconHA/shutter-open.gif
+                                            color: rgba(255,255,200,0.0)
+                                            custom_fields:
+                                              notification: ''
+                                          - value: closed
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unavailable
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unknown
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                        styles:
+                                          state:
+                                            - position: absolute
+                                            - font-size: 14px
+                                            - top: '-25px'
+                                            - left: 10px
+                                          entity_picture:
+                                            - position: absolute
+                                            - top: 8px
+                                            - left: 10px
+                                          card:
+                                            - padding: 5px 5px
+                                            - border-radius: 10%
+                                            - height: 125px
+                                            - width: 120px
+                                          grid:
+                                            - position: relative
+                                          name:
+                                            - position: absolute
+                                            - top: '-39px'
+                                            - left: 10px
+                                            - font-weight: bold
+                                            - font-size: 14px
+                                        tap_action:
+                                          action: toggle
+                                        hold_action:
+                                          action: call-service
+                                          service: browser_mod.popup
+                                          service_data:
+                                            style:
+                                              $: |
+                                                .mdc-dialog .mdc-dialog__container
+                                                          .mdc-dialog__surface {
+                                                            border-radius: 25px;                                        
+                                                            background: rgba(0,0,0,0);
+                                                            width: 5px;
+                                                          }
+                                                        .: |
+                                                          :host {
+                                                            border-radius: 25px;
+                                                            color: rgba(0,0,0,0.4);
+                                                            background: rgba(0,0,0,0);
+                                                          }
+                                                          :host .content {
+                                                             border-radius: 25px;
+
+                                                           }                            
+                                            brightnessWidth: 200px
+                                            brightnessHeight: 500px
+                                            switchWidth: 210px
+                                            switchHeight: 500px
+                                            color: '#E733FF'
+                                            color_temp: true
+                                            title: Balcony Shutter
+                                            card:
+                                              type: custom:layout-card
+                                              layout_type: grid
+                                              layout:
+                                                grid-gap: var(--custom-layout-card-padding)
+                                                grid-auto-columns: 10% 80% 10%
+                                                grid-auto-rows: minmax(1fr,auto)
+                                                grid-template-areas: |
+                                                  "cover cover cover"
+                                                  "sensors sensors sensors"
+                                              cards:
+                                                - type: custom:shutter-card
+                                                  entities:
+                                                    - entity: input_boolean.dummy
+                                                      name: Dinning Shutter
+                                                  buttons_position: right
+                                                  title_position: top
+                                                  view_layout:
+                                                    grid-area: cover
+                                                  style: |
+                                                    ha-card {
+                                                    border-radius: 0px;
+                                                    //background: rgba(0,0,0,.6);
+                                                    box-shadow: none;
+                                                    // width: 100%;
+                                                    }
+                                                - type: custom:slider-entity-row
+                                                  entity: input_boolean.dummy
+                                                  name: hide_state
+                                                  full_row: true
+                                                  view_layout:
+                                                    grid-area: sensors
+                                    - card: custom:button-card
+                                      noPadding: true
+                                      cardStyle: |
+                                        :host {
+                                          display: flex;
+
+                                          height: 100%; /* Fallback for browsers that do not support Custom Properties */
+
+
+                                        }
+                                      cardOptions:
+                                        entity: input_boolean.dummy
+                                        color_type: card
+                                        name: Right Shutter
+                                        show_entity_picture: true
+                                        show_icon: false
+                                        show_state: true
+                                        show_name: true
+                                        size: 60%
+                                        state:
+                                          - value: open
+                                            entity_picture: /local/iconHA/shutter-open.gif
+                                            color: rgba(255,255,200,0.0)
+                                            custom_fields:
+                                              notification: ''
+                                          - value: closed
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unavailable
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unknown
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                        styles:
+                                          state:
+                                            - position: absolute
+                                            - font-size: 14px
+                                            - top: '-25px'
+                                            - left: 10px
+                                          entity_picture:
+                                            - position: absolute
+                                            - top: 8px
+                                            - left: 10px
+                                          card:
+                                            - padding: 5px 5px
+                                            - border-radius: 10%
+                                            - height: 125px
+                                            - width: 120px
+                                          grid:
+                                            - position: relative
+                                          name:
+                                            - position: absolute
+                                            - top: '-39px'
+                                            - left: 10px
+                                            - font-weight: bold
+                                            - font-size: 14px
+                                        tap_action:
+                                          action: toggle
+                                        hold_action:
+                                          action: call-service
+                                          service: browser_mod.popup
+                                          service_data:
+                                            style:
+                                              $: |
+                                                .mdc-dialog .mdc-dialog__container
+                                                          .mdc-dialog__surface {
+                                                            border-radius: 25px;                                        
+                                                            background: rgba(0,0,0,0);
+                                                            width: 5px;
+                                                          }
+                                                        .: |
+                                                          :host {
+                                                            border-radius: 25px;
+                                                            color: rgba(0,0,0,0.4);
+                                                            background: rgba(0,0,0,0);
+                                                          }
+                                                          :host .content {
+                                                             border-radius: 25px;
+
+                                                           }                            
+                                            brightnessWidth: 200px
+                                            brightnessHeight: 500px
+                                            switchWidth: 210px
+                                            switchHeight: 500px
+                                            color: '#E733FF'
+                                            color_temp: true
+                                            title: Right Shutter
+                                            card:
+                                              type: custom:layout-card
+                                              layout_type: grid
+                                              layout:
+                                                grid-gap: var(--custom-layout-card-padding)
+                                                grid-auto-columns: 10% 80% 10%
+                                                grid-auto-rows: minmax(1fr,auto)
+                                                grid-template-areas: |
+                                                  "cover cover cover"
+                                                  "sensors sensors sensors"
+                                              cards:
+                                                - type: custom:shutter-card
+                                                  entities:
+                                                    - entity: input_boolean.dummy
+                                                      name: Right Shutter
+                                                  buttons_position: right
+                                                  title_position: top
+                                                  view_layout:
+                                                    grid-area: cover
+                                                  style: |
+                                                    ha-card {
+                                                    border-radius: 0px;
+                                                    //background: rgba(0,0,0,.6);
+                                                    box-shadow: none;
+                                                    // width: 100%;
+                                                    }
+                                                - type: custom:slider-entity-row
+                                                  entity: input_boolean.dummy
+                                                  name: hide_state
+                                                  full_row: true
+                                                  view_layout:
+                                                    grid-area: sensors
+                                    - card: custom:button-card
+                                      noPadding: true
+                                      cardStyle: |
+                                        :host {
+                                          display: flex;
+
+                                          height: 100%; /* Fallback for browsers that do not support Custom Properties */
+
+
+                                        }
+                                      cardOptions:
+                                        entity: input_boolean.dummy
+                                        color_type: card
+                                        name: Left Shutter
+                                        show_entity_picture: true
+                                        show_icon: false
+                                        show_state: true
+                                        show_name: true
+                                        size: 60%
+                                        state:
+                                          - value: open
+                                            entity_picture: /local/iconHA/shutter-open.gif
+                                            color: rgba(255,255,200,0.0)
+                                            custom_fields:
+                                              notification: ''
+                                          - value: closed
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unavailable
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                          - value: unknown
+                                            entity_picture: /local/iconHA/shutter-close.gif
+                                            color: rgba(0,0,0,0.4)
+                                        styles:
+                                          state:
+                                            - position: absolute
+                                            - font-size: 14px
+                                            - top: '-25px'
+                                            - left: 10px
+                                          entity_picture:
+                                            - position: absolute
+                                            - top: 8px
+                                            - left: 10px
+                                          card:
+                                            - padding: 5px 5px
+                                            - border-radius: 10%
+                                            - height: 125px
+                                            - width: 120px
+                                          grid:
+                                            - position: relative
+                                          name:
+                                            - position: absolute
+                                            - top: '-39px'
+                                            - left: 10px
+                                            - font-weight: bold
+                                            - font-size: 14px
+                                        tap_action:
+                                          action: toggle
+                                        hold_action:
+                                          action: call-service
+                                          service: browser_mod.popup
+                                          service_data:
+                                            style:
+                                              $: |
+                                                .mdc-dialog .mdc-dialog__container
+                                                          .mdc-dialog__surface {
+                                                            border-radius: 25px;                                        
+                                                            background: rgba(0,0,0,0);
+                                                            width: 5px;
+                                                          }
+                                                        .: |
+                                                          :host {
+                                                            border-radius: 25px;
+                                                            color: rgba(0,0,0,0.4);
+                                                            background: rgba(0,0,0,0);
+                                                          }
+                                                          :host .content {
+                                                             border-radius: 25px;
+
+                                                           }                            
+                                            brightnessWidth: 200px
+                                            brightnessHeight: 500px
+                                            switchWidth: 210px
+                                            switchHeight: 500px
+                                            color: '#E733FF'
+                                            color_temp: true
+                                            title: Left Shutter
+                                            card:
+                                              type: custom:layout-card
+                                              layout_type: grid
+                                              layout:
+                                                grid-gap: var(--custom-layout-card-padding)
+                                                grid-auto-columns: 10% 80% 10%
+                                                grid-auto-rows: minmax(1fr,auto)
+                                                grid-template-areas: |
+                                                  "cover cover cover"
+                                                  "sensors sensors sensors"
+                                              cards:
+                                                - type: custom:shutter-card
+                                                  entities:
+                                                    - entity: input_boolean.dummy
+                                                      name: Left Shutter
+                                                  buttons_position: right
+                                                  title_position: top
+                                                  view_layout:
+                                                    grid-area: cover
+                                                  style: |
+                                                    ha-card {
+                                                    border-radius: 0px;
+                                                    //background: rgba(0,0,0,.6);
+                                                    box-shadow: none;
+                                                    // width: 100%;
+                                                    }
+                                                - type: custom:slider-entity-row
+                                                  entity: input_boolean.dummy
+                                                  name: hide_state
+                                                  full_row: true
+                                                  view_layout:
+                                                    grid-area: sensors
