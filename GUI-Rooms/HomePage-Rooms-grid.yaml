@@ -1,0 +1,645 @@
+  - path: default_view
+    title: Home
+    type: custom:grid-layout
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 6% 47% 47%
+      grid-auto-rows: minmax(1fr,auto)
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        "basement   basement   basement"
+        "basementrooms   basementrooms   basementrooms"
+        "first   first   first"
+        "firstrooms   firstrooms   firstrooms"
+
+        "ground   ground   ground"
+        "groundrooms   groundrooms   groundrooms"
+        "roof   roof   roof"
+        "roofrooms   roofrooms   roofrooms"
+        ".       devices devices2"
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          .: |
+            ha-card {
+
+               background-color: yellow;
+                         }
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "basement    basement    "
+            "basementrooms    basementrooms    "
+            "first    first    "
+            "firstrooms    firstrooms    "
+            "ground    ground    "
+            "groundrooms    groundrooms    "
+            "roof    roof    "
+            "roofrooms    roofrooms    "
+            "devices  devices  "
+            "devices2 devices2 "
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 4% 48% 48%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar sidebar sidebar"
+            "basement   basement   basement"
+            "basementrooms   basementrooms   basementrooms"
+
+            "first   first   first"
+            "firstrooms   firstrooms   firstrooms"
+
+            "ground   ground   ground"
+            "groundrooms   groundrooms   groundrooms"
+            "roof   roof   roof"
+            "roofrooms   roofrooms   roofrooms"
+            ".       devices devices2"
+            "footer  footer  footer"
+    badges: []
+    cards:
+      - type: custom:weather-card
+        entity: weather.mohamed_nasser_home
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - content: |
+          # Basement
+        type: markdown
+        view_layout:
+          grid-area: basement
+        style:
+          .: |
+            ha-card {
+
+               #width: 50px;
+               #height: 10px;
+
+               background-color: rgba(0,0,0,0);
+               border-top-left-radius: 20px;
+               border-top-right-radius: 20px;
+                box-shadow: none;
+            }
+          ha-markdown:
+            $: |
+              h1 {
+                font-size: 20px;
+               # font-weight: bold;
+                text-align: left;
+
+                font-family: "Raleway", sans-serif;
+              }
+      - type: custom:swipe-card
+        card_width: 25em
+        view_layout:
+          grid-area: basementrooms
+        start_card: 2
+        parameters:
+          effect: coverflow
+          grabCursor: true
+          centeredSlides: true
+          slidesPerView: auto
+          coverflowEffect:
+            rotate: 50
+            depth: 100
+            modifier: 1
+            slideShadows: true
+          pagination:
+            type: bullets
+        cards:
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/juczi.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/Jacuzzi
+            title: Jacuzzi
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Salon.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/guest
+            title: Guest Room
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/garage1.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/garage
+            title: Garage
+            type: picture-glance
+      - content: |
+          # Ground Floor 
+        type: markdown
+        view_layout:
+          grid-area: first
+        style:
+          .: |
+            ha-card {
+
+               #width: 50px;
+               #height: 10px;
+
+               background-color: rgba(0,0,0,0);
+               border-top-left-radius: 20px;
+               border-top-right-radius: 20px;
+                box-shadow: none;
+            }
+          ha-markdown:
+            $: |
+              h1 {
+                font-size: 20px;
+               # font-weight: bold;
+                text-align: left;
+                letter-spacing: '-0.01em';
+                font-family: "Raleway", sans-serif;
+              }
+      - type: custom:swipe-card
+        card_width: 25em
+        view_layout:
+          grid-area: firstrooms
+        start_card: 3
+        parameters:
+          effect: coverflow
+          grabCursor: true
+          centeredSlides: true
+          slidesPerView: auto
+          coverflowEffect:
+            rotate: 50
+            depth: 100
+            modifier: 1
+            slideShadows: true
+          pagination:
+            type: bullets
+        cards:
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/entrance5.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/entrance
+            title: Entrance
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Family3.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/reception
+            title: Reception
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Family.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/livingroomground
+            title: Living Room Ground
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Dinning2.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/dinning
+            title: Dinning
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/office4.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/office
+            title: Office
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/irrigation.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/irrigation
+            title: Irrigation
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Pool-Villa.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/outdoor
+            title: Outdoor
+            type: picture-glance
+      - content: |
+          # First Floor
+        type: markdown
+        view_layout:
+          grid-area: ground
+        style:
+          .: |
+            ha-card {
+
+               #width: 50px;
+               #height: 10px;
+
+               background-color: rgba(0,0,0,0);
+               border-top-left-radius: 20px;
+               border-top-right-radius: 20px;
+                box-shadow: none;
+            }
+          ha-markdown:
+            $: |
+              h1 {
+                font-size: 20px;
+               # font-weight: bold;
+                text-align: left;
+                letter-spacing: '-0.01em';
+                font-family: "Raleway", sans-serif;
+              }
+      - type: custom:swipe-card
+        card_width: 25em
+        view_layout:
+          grid-area: groundrooms
+        start_card: 3
+        parameters:
+          effect: coverflow
+          grabCursor: true
+          centeredSlides: true
+          slidesPerView: auto
+          coverflowEffect:
+            rotate: 50
+            depth: 100
+            modifier: 1
+            slideShadows: true
+          pagination:
+            type: bullets
+        cards:
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/Family.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/livingf
+            title: Living Room First Floor
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/dressing.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/dressing
+            title: Dressing Room
+            type: picture-glance
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/MasterRoom1.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/master
+            title: Master Room
+            type: picture-glance
+      - content: |
+          # Roof
+        type: markdown
+        view_layout:
+          grid-area: roof
+        style:
+          .: |
+            ha-card {
+
+               #width: 50px;
+               #height: 10px;
+
+               background-color: rgba(0,0,0,0);
+               border-top-left-radius: 20px;
+               border-top-right-radius: 20px;
+                box-shadow: none;
+            }
+          ha-markdown:
+            $: |
+              h1 {
+                font-size: 20px;
+                font-family: "Raleway", sans-serif;
+               # font-weight: bold;
+                text-align: left;
+                letter-spacing: '-0.01em';
+
+              }
+      - type: custom:swipe-card
+        card_width: 25em
+        view_layout:
+          grid-area: roofrooms
+        start_card: 3
+        parameters:
+          effect: coverflow
+          grabCursor: true
+          centeredSlides: true
+          slidesPerView: auto
+          coverflowEffect:
+            rotate: 50
+            depth: 100
+            modifier: 1
+            slideShadows: true
+          pagination:
+            type: bullets
+        cards:
+          - aspect_ratio: 0%
+            entities: []
+            image: /local/iconHA/room.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/roof
+            title: Roof
+            type: picture-glance
+      - type: grid
+        view_layout:
+          grid-area: devices
+        cards:
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            entity_picture: /local/iconHA/pulp.png
+            show_icon: false
+            entities: []
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/lighting
+            show_state: false
+            show_name: false
+            size: 60%
+            name: Lighting
+            styles:
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                    rgba(255,255,255,.5)
+              name:
+                - color: rgba(255,255,255,1)
+                - font-style: italic
+                - font-size: 20px
+                - font-weight: bold
+            view_layout:
+              justify-items: end
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            entity_picture: /local/iconHA/Shutter-Icon.gif
+            show_icon: false
+            entities: []
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/shutters
+            show_state: false
+            show_name: true
+            size: 70%
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+            styles:
+              entity_picture:
+                - height: 80%
+                - width: 50%
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                    rgba(255,255,255,.5)
+              name:
+                - color: rgba(255,255,255,1)
+                - font-style: italic
+                - font-size: 20px
+                - font-weight: bold
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+            entity_picture: /local/iconHA/stair-small.png
+            show_icon: false
+            entities: []
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/stairs
+            show_state: false
+            show_name: false
+            name: stairs
+            size: 70%
+            styles:
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                    rgba(255,255,255,.5)
+        square: false
+      - type: grid
+        view_layout:
+          grid-area: devices2
+        cards:
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+            entity_picture: /local/iconHA/Media-Icon-Large.png
+            show_icon: false
+            entities: []
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/media
+            show_state: false
+            show_name: false
+            name: Media
+            size: 70%
+            styles:
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),   0 0 10px
+                    rgba(255,255,255,.5)
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            show_icon: false
+            show_state: false
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+            entity_picture: /local/iconHA/AirConditioner-Icon-Off.png
+            size: 75%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/ac
+            icon: mdi:movie-open
+            state:
+              - value: 'on'
+                color: deepskyblue
+              - value: 'off'
+                color: rgba(255,255,255,0.8)
+            styles:
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),   0 0 10px
+                    rgba(255,255,255,.5)
+          - type: custom:button-card
+            color_type: card
+            color: rgba(255,255,255,0)
+            show_entity_picture: true
+            entity_picture: /local/iconHA/Security-Icon-Large.png
+            show_icon: false
+            entities: []
+            extra_styles: |
+              ha-card:hover {
+                transform: scale(1.05);
+              }
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/security
+            show_state: false
+            show_name: true
+            size: 70%
+            styles:
+              card:
+                - border-radius: 20%
+                - height: 7em
+                - width: 7em
+                - box-shadow: >-
+                    0px 8px 15px rgba(0, 0, 0, 0.2),   0 0 10px
+                    rgba(255,255,255,.5)
+              name:
+                - color: rgba(255,255,255,1)
+                - font-style: italic
+                - font-size: 20px
+                - font-weight: bold
+        square: false
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+            box-shadow: none;
+          }            
+          .card-content {
+              bottom-padding: 15px;
+
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+            min-height:50px;
+
+           
+          }
+        entities:
+          - type: custom:paper-buttons-row
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/setting/
+                icon: mdi:cogs
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5);
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0/
+                icon: hass:home-export-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/scenario/
+                icon: hass:movie-open-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                  icon:
+                    '--mdc-icon-size': 40px
