@@ -1,0 +1,386 @@
+
+  - title: Lighting
+    path: lighting
+    type: custom:grid-layout
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 10% 80% 10%
+      grid-auto-rows: minmax(1fr,auto)
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        ".       device    ."
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "device   device    "
+
+
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar   sidebar"
+            "device    device"
+
+            "footer    footer"
+    icon: mdi:lightbulb-group-outline
+    badges: []
+    cards:
+      - type: custom:weather-card
+        entity: weather.mohamed_nasser_home
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+            box-shadow: none;
+          }            
+          .card-content {
+              bottom-padding: 15px;
+
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+            min-height:50px;
+
+           
+          }
+        entities:
+          - type: custom:paper-buttons-row
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/setting/
+                icon: mdi:cogs
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5);
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0/
+                icon: hass:home-export-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/scenario/
+                icon: hass:movie-open-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                  icon:
+                    '--mdc-icon-size': 40px
+      - type: entities
+        entities:
+          - type: section
+            label: Basement
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Spots Light
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Entrance wall
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Jacuzzi lights
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Left lights 1
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Left lights 2
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Left J light
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Middle J light
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Right J light
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Terase light
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Inner light Guest
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Spots Guest
+                icon: bha:ceiling-lamp
+              - entity: input_boolean.dummy
+                name: Hidden light Guest
+                icon: mdi:led-strip-variant
+          - type: buttons
+            entities:
+              - entity: input_boolean.dummy
+                name: Garage spots
+                icon: bha:ceiling-lamp
+          - type: attribute
+            entity: timer.timer
+            attribute: Duration
+          - entity: input_boolean.dummy
+            icon: mdi:led-strip-variant
+            name: Tv LED
+          - entity: input_boolean.dummy
+            name: Cinema Spots
+            icon: bha:ceiling-lamp
+          - entity: input_boolean.dummy
+            icon: mdi:track-light
+            name: Cinema Wall Hidden
+          - entity: light.cinema_room_3_2_floor_hidden_lig_21
+            icon: mdi:track-light
+            name: Cinema Floor Hidden
+          - type: divider
+          - entity: light.gym_6_1_hidden_light_38
+            name: Gym Hidden Light
+            icon: mdi:led-strip-variant
+          - entity: light.gym_5_1_track_light_1_32
+            name: Gym Track Lights 1
+            icon: mdi:track-light
+          - entity: light.gym_5_2_track_light_2_33
+            name: Gym Track Lights 2
+            icon: mdi:track-light
+          - type: divider
+          - entity: light.family_room_7_1_track_light_1_44
+            icon: mdi:track-light
+            name: Family Room Track Light 1
+          - entity: light.family_room_7_2_track_light_2_45
+            icon: mdi:track-light
+            name: Family Room Track Light 2
+          - entity: light.family_room_8_1_spots_50
+            icon: mdi:vanity-light
+            name: Family Room Spots
+          - entity: light.family_room_9_1_hidden_light_1_56
+            name: Family Room Hidden Light 1
+            icon: mdi:led-strip-variant
+          - entity: light.family_room_9_2_hidden_light_2_57
+            name: Family Room Hidden Light 2
+            icon: mdi:led-strip-variant
+          - type: divider
+          - entity: light.garage_11_1_light_1_68
+            name: Garage Light 1
+            icon: bha:ceiling-lamp
+          - entity: light.garage_11_2_light_2_69
+            icon: bha:ceiling-lamp
+            name: Garage Light 2
+          - type: divider
+          - entity: light.entrance_1_1_hidden_light_1_9
+            name: Entrance Hidden Light 1
+            icon: mdi:led-strip-variant
+          - entity: light.entrance_1_2_hidden_light_2_8
+            name: Entrance Hidden Light 2
+            icon: mdi:led-strip-variant
+          - entity: light.entrance_2_2_spots_15
+            icon: bha:ceiling-lamp
+            name: Entrance Stairs Spots
+          - entity: light.entrance_2_1_wall_hidden_ligh_14
+            icon: mdi:vanity-light
+            name: Entrance Wall Hidden Light
+          - entity: light.entrance_3_1_door_light_20
+            icon: mdi:outdoor-lamp
+            name: Entrance Door Spots
+          - type: divider
+          - entity: light.office_4_1_hidden_light_1_26
+            name: Office Hidden Light 1
+            icon: mdi:led-strip-variant
+          - entity: light.office_4_2_hidden_light_2_27
+            name: Office Hidden Light 2
+            icon: mdi:led-strip-variant
+          - entity: light.office_5_2_decorative_light_33
+            icon: hue:pendant-round
+            name: Office Decorative Light
+          - entity: light.office_5_1_wall_hidden_ligh_32
+            icon: hue:double-spot
+            name: Office Wall Hidden Lights
+          - entity: light.office_6_1_libarary_light_38
+            icon: mdi:led-strip-variant
+            name: Office Liberary Light
+          - type: divider
+          - entity: light.lobby_8_1_hidden_light_50
+            icon: mdi:led-strip-variant
+            name: Lobby Hidden Light
+          - entity: light.lobby_7_2_decorative_light_45
+            icon: hue:pendant-round
+            name: Lobby Decorative Light
+          - entity: light.lobby_7_1_spots_44
+            icon: bha:ceiling-lamp
+            name: Lobby Spots
+          - type: divider
+          - entity: light.dining_9_1_track_light_1_56
+            icon: mdi:led-strip-variant
+            name: Dinning Track Hidden Light 1
+          - entity: light.dining_9_2_track_light_2_57
+            icon: mdi:led-strip-variant
+            name: Dinning Track Hidden Light 2
+          - entity: light.dining_10_1_wall_light_62
+            icon: mdi:track-light
+            name: Dinning Wall Hidden Light
+          - type: divider
+          - entity: light.reception_11_1_main_light_1_68
+            icon: hue:pendant-round
+            name: Reception Main Light 1
+          - entity: light.reception_11_2_main_light_2_69
+            icon: hue:pendant-round
+            name: Reception Main Light 2
+          - entity: light.reception_12_1_spots_74
+            icon: bha:ceiling-lamp
+            name: Reception Spots
+          - entity: light.reception_12_2_hidden_light_75
+            icon: mdi:led-strip-variant
+            name: Reception Hidden Light
+          - entity: light.reception_13_1_wall_hidden_lig_80
+            icon: mdi:track-light
+            name: Reception Wall Hidden Light
+          - type: divider
+          - entity: light.corridor_1_1_led_9
+            icon: mdi:led-strip-variant
+            name: Corridor Hidden Light
+          - entity: light.corridor_1_1_led_9
+            icon: hue:double-spot
+            name: Corridor Chandelier
+          - type: divider
+          - entity: light.reception_12_2_hidden_light_75
+            icon: mdi:vanity-light
+          - entity: light.living_room_2_1_hidden_light_2_15
+            icon: mdi:track-light
+          - entity: light.living_room_3_1_hidden_light_3_20
+            icon: mdi:vanity-light
+          - entity: light.living_room_3_2wall_hidden_light_21
+            icon: mdi:track-light
+          - entity: light.living_room_4_1_track_light1_26
+          - entity: light.living_room_4_2_track_light_2_27
+          - entity: light.living_room_5_1_pendent_32
+            icon: mdi:vanity-light
+          - type: divider
+          - entity: light.outdoors_6_1_applique_1_38
+            icon: bha:ceiling-lamp
+          - entity: light.outdoors_6_2_applique_2_39
+            icon: mdi:led-strip-variant
+          - entity: light.outdoors_7_2_floor_spots_44
+            icon: bha:ceiling-lamp
+          - entity: light.outdoors_7_1_pergola_light_45
+            icon: bha:ceiling-lamp
+          - entity: light.outdoors_4_1_decorative_1_26
+            icon: mdi:track-light
+          - entity: light.outdoors_4_2_decorative_2_27
+            icon: mdi:outdoor-lamp
+          - entity: light.outdoors_5_1_decorative_3_32
+            icon: mdi:led-strip-variant
+          - entity: light.outdoors_5_2_decorative_4_33
+            icon: mdi:led-strip-variant
+          - type: divider
+          - entity: light.stairs_12_1_track_lights_74
+            icon: bha:ceiling-lamp
+          - entity: light.stairs_12_2_spots_75
+            icon: mdi:led-strip-variant
+          - entity: light.stairs_14_1_hidden_light_1_86
+            icon: bha:ceiling-lamp
+          - entity: light.stairs_14_2_hidden_light_2_87
+            icon: mdi:vanity-light
+          - entity: light.roof_stairs_1_1_chandiler_1_8
+            icon: mdi:track-light
+          - entity: light.roof_stairs_1_2_chandiler_2_9
+            icon: mdi:led-strip-variant
+          - entity: light.roof_stairs_2_1_spots_1_14
+            icon: bha:ceiling-lamp
+          - entity: light.roof_stairs_2_2_spots_2_15
+            icon: mdi:vanity-light
+          - entity: light.entrance_2_1_wall_hidden_ligh_14
+            icon: mdi:track-light
+          - entity: light.roof_stairs_3_1wall_hidden_light_20
+            icon: mdi:track-light
+        title: Villa lights
+        state_color: false
+        view_layout:
+          grid-area: device
+        style:
+          .: |
+            ha-card {
+
+              overflow: none;
+
+              margin: 0 0;
+              padding-top: 0px;
+              background-color: rgba(0,0,0,0);
+            }
