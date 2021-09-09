@@ -1,0 +1,385 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+############duckdns_portforward############
+ http:
+  base_url: https://aswar21.duckdns.org
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+stream:
+
+weather:
+# Text to speech
+tts:
+  - platform: google_translate
+frontend:
+        themes: !include_dir_merge_named themes
+          
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+############Groups############
+group: !include groups.yaml
+cover: !include covers.yaml
+#light: !include lights.yaml
+climate: 
+  - platform: climate_group
+    name: Villa AC
+    entities:
+        - climate.cinema_room_ac_1_degree_116
+        - climate.gym_ac_2_degree_130
+        - climate.family_room_ac_3_degree_149
+        - climate.office_ac_1_degree_300
+        - climate.dining_ac_2_degree_305
+        - climate.reception_ac_3_degree_319
+        - climate.kitchen_ac_4_degree_324
+        - climate.living_room_ac_1_degree_94
+        - climate.master_room_ac_2_degree_99
+        - climate.room_1_ac_3_degree_104
+        - climate.room_2_ac_4_degree_109
+        
+
+        
+############Notification_config############        
+notify:
+  - name: "gmail"
+    platform: smtp
+    server: "smtp.gmail.com"
+    port: 587
+    timeout: 15
+    sender: "acsacs429@gmail.com"
+
+    username: "acsacs429@gmail.com"
+    password: "Dcs5020-l"
+    recipient:
+      - "acsacs429@gmail.com"
+
+    sender_name: "Aswar21_HomeAssistant"
+    
+############Gateways############    
+fibaro:
+  gateways: !include fibaro.yaml
+            #   - url: http://192.168.1.32/api/   
+            #     username: aswar21.fibaro@gmail.com
+            #     password: Dcs502010-l 
+            #   - url: http://192.168.1.33/api/  
+            #     username: aswar21.fibaro@gmail.com
+            #     password: Dcs502010-l 
+            #   - url: http://192.168.1.31/api/  
+            #     username: aswar21.fibaro@gmail.com
+            #     password: Dcs502010-l 
+            #   - url: http://192.168.1.30/api/  
+            #     username: aswar21.fibaro@gmail.com
+            #     password: Dcs502010-l 
+
+  
+sonoff:
+  username: aswar21.fibaro@gmail.com
+  password: Dcs502010-l
+  mode: local
+  reload: always      
+
+
+
+############Sensors############     
+binary_sensor:
+                          #check first floor controller connection to the network
+  - platform: ping
+    host: 192.168.1.32
+    name: HC_first_ping
+    count: 2
+    scan_interval: 10
+                              #check roof controller connection to the network
+  - platform: ping
+    host: 192.168.1.33
+    name: HC_roof_ping
+    count: 2
+    scan_interval: 10
+
+
+          #check ground controller connection to the network
+  - platform: ping
+    host: 192.168.1.31
+    name: HC_ground_ping
+    count: 2
+    scan_interval: 10
+    
+                                #check basement controller connection to the network
+  - platform: ping
+    host: 192.168.1.30
+    name: HC_basement_ping
+    count: 2
+    scan_interval: 10
+
+    
+   
+
+sensor:
+                          #HA system monitor sensors
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+      - type: ipv4_address
+        arg: eth0
+      - type: network_in
+        arg: eth0
+      - type: packets_in
+        arg: eth0
+      - type: packets_out
+        arg: eth0
+      - type: processor_temperature
+      - type: last_boot
+      
+  - platform: rest
+    resource: http://192.168.1.32/api/loginStatus
+    name: HC_first_api_check
+    value_template: '{{ value_json.status }}'
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l
+  - platform: template
+    sensors:
+      hc_first_temp:
+        friendly_name: "HC first temp"
+        unit_of_measurement: "°"
+        value_template: "1{{ states.sensor.hc_first_api_check.state }}"   
+        
+  - platform: rest
+    resource: http://192.168.1.33/api/loginStatus
+    name: HC_roof_api_check
+    value_template: '{{ value_json.status }}'
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l
+  - platform: template
+    sensors:
+      hc_roof_temp:
+        friendly_name: "HC roof temp"
+        unit_of_measurement: "°"
+        value_template: "1{{ states.sensor.hc_roof_api_check.state }}"   
+        
+  - platform: rest
+    resource: http://192.168.1.31/api/loginStatus
+    name: hc_ground_api_check
+    value_template: '{{ value_json.status }}'
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l
+  - platform: template
+    sensors:
+      hc_ground_temp:
+        friendly_name: "HC ground temp"
+        unit_of_measurement: "°"
+        value_template: "1{{ states.sensor.hc_ground_api_check.state }}"   
+        
+        
+  - platform: rest
+    resource: http://192.168.1.30/api/loginStatus
+    name: hc_basement_api_check
+    value_template: '{{ value_json.status }}'
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l
+  - platform: template
+    sensors:
+      hc_basement_temp:
+        friendly_name: "HC basement temp"
+        unit_of_measurement: "°"
+        value_template: "1{{ states.sensor.hc_basement_api_check.state }}"   
+        
+
+    
+################################################## Alarm Panel ##################################################################
+alarm_control_panel:
+  - platform: manual
+    name: Home Alarm
+    code: '1234'
+    arming_time: 10
+    delay_time: 5
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      arming_time: 0
+      delay_time: 0
+################################################# Enable browser-mod ##########################################
+browser_mod:
+    prefix: 'browser_mod_'
+    
+################################################# Cameras  ##########################################    
+
+camera:
+  - platform: ffmpeg
+    name: Camera 1
+    input: rtsp://admin:Dcs502010-l@192.168.1.21:554
+  - platform: ffmpeg
+    name: Camera 2
+    input: rtsp://admin:Dcs502010-l@192.168.1.22:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 3
+    input: rtsp://admin:Dcs502010-l@192.168.1.23:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 4
+    input: rtsp://admin:Dcs502010-l@192.168.1.24:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 5
+    input: rtsp://admin:Dcs502010-l@192.168.1.25:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 6
+    input: rtsp://admin:Dcs502010-l@192.168.1.26:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 7
+    input: rtsp://admin:Dcs502010-l@192.168.1.27:554/Streaming/Channels/101
+  - platform: ffmpeg
+    name: Camera 8
+    input: rtsp://admin:Dcs502010-l@192.168.1.28:554/Streaming/Channels/101
+  - platform: proxy
+    entity_id: camera.camera_4
+    max_stream_width: 360
+    max_image_width: 720
+    image_refresh_rate: 3.0
+    name: camera4 stream
+  - platform: proxy
+    entity_id: camera.camera_5
+
+    image_refresh_rate: 3.0
+    name: camera5 stream
+
+################################################# Cameras proxy   ##########################################     
+  - platform: proxy
+    entity_id: camera.camera_1
+    name: camera1 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0   
+    
+  - platform: proxy
+    entity_id: camera.camera_2
+    name: camera2 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0  
+    
+  - platform: proxy
+    entity_id: camera.camera_3
+    name: camera3 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0  
+    
+  - platform: proxy
+    entity_id: camera.camera_4
+    name: camera4 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0  
+    
+  - platform: proxy
+    entity_id: camera.camera_5
+    name: camera5 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0 
+    
+  - platform: proxy
+    entity_id: camera.camera_6
+    name: camera6 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0
+    
+  - platform: proxy
+    entity_id: camera.camera_7
+    name: camera7 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0  
+    
+    
+  - platform: proxy
+    entity_id: camera.camera_8
+    name: camera8 stream
+ 
+    max_image_width: 480
+    max_image_height: 320
+    max_stream_width: 480
+    max_stream_height: 320
+    image_left: 100
+    image_refresh_rate: 2.0  
+################################################# Media  ##########################################     
+    
+webostv:
+  - host: 192.168.1.50
+    name: Family Room TV
+  - host: 192.168.1.51
+    name: Gym TV
+  - host: 192.168.1.54
+    name: Kitchen TV
+
+media_player:
+
+  - platform: onkyo
+    host: 192.168.1.53
+    name: Cinema onkyo
+ #   max_volume : 200
+    sources:
+       pc: "HTPC"
+       dvd: "DVD"
+       cd: "CD"
+       tv-tape: "TV-Tape"
+       tv-cd: "TV-CD"
+       bd-dvd: "BD-DVD"
+       usb: "USB"
+       multi-ch: "Multi-CH"
+       universal-port: "UNIVERSAL-PORT"
+       video1: "VIDEO1"
+       video2: "VIDEO2"
+
+  - platform: onkyo
+    host: 192.168.1.55
+    name: office onkyo
+ #   max_volume : 200
+    sources:
+       pc: "HTPC"
+       dvd: "DVD"
+       cd: "CD"
+       tv-tape: "TV-Tape"
+       tv-cd: "TV-CD"
+       bd-dvd: "BD-DVD"
+       usb: "USB"
+       multi-ch: "Multi-CH"
+       universal-port: "UNIVERSAL-PORT"
+       video1: "VIDEO1"
+       video2: "VIDEO2"
