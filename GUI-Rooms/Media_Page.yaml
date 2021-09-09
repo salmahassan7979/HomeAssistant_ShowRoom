@@ -1,0 +1,140 @@
+  - title: media
+    path: media
+    type: custom:grid-layout
+    layout:
+      grid-gap: var(--custom-layout-card-padding)
+      grid-auto-columns: 10% 80% 10%
+      grid-auto-rows: minmax(1fr,auto)
+      grid-template-areas: |
+        "sidebar sidebar sidebar"
+        ".       list    ."
+        "footer  footer  footer"
+      mediaquery:
+        '(max-width: 800px)':
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar  sidebar  "
+            "list     list    "
+
+            "devices2 devices2 "
+            "footer   footer   "
+        '(max-width: 1200px)':
+          grid-gap: var(--custom-layout-card-padding)
+          grid-auto-columns: 50% 50%
+          grid-auto-rows: minmax(1fr,auto)
+          grid-template-areas: |
+            "sidebar   sidebar"
+            "list      list"
+
+            "footer    footer"
+    icon: mdi:playlist-music
+    badges: []
+    cards:
+      - type: custom:weather-card
+        entity: weather.mohamed_nasser_home
+        number_of_forecasts: '5'
+        details: true
+        forecast: false
+        hourly_forecast: true
+        name: Weather
+        style:
+          .: |
+            ha-card {
+
+                background-color: rgba(0,0,0,0);
+
+               -moz-background-size: cover;   
+               padding: 20px;
+
+               border-top-left-radius: 50px;
+               border-bottom-right-radius: 50px;
+
+            }
+        view_layout:
+          grid-area: sidebar
+      - type: entities
+        view_layout:
+          grid-area: footer
+        style: |
+          ha-card {
+            --ha-card-background: var(--ch-background);
+            background: var(--ch-background);
+            border-radius: 0px !important;
+            box-shadow: none;
+          }            
+          .card-content {
+              bottom-padding: 15px;
+
+          }
+          :host {
+            z-index: 999;
+            position: sticky;
+            position: -webkit-sticky;
+            bottom: 0;
+            min-height:50px;
+
+           
+          }
+        entities:
+          - type: custom:paper-buttons-row
+            buttons:
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/setting/
+                icon: mdi:cogs
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5);
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                    border-radius: 50px
+                    padding: 10px
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0/
+                icon: hass:home-export-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: |
+                      {% if is_state('input_boolean.dummy', 'on') %}
+                        rgba(251, 125, 85,0.7)
+                      {% else %}
+                        rgba(251, 125, 85,0.7)
+                      {% endif %}
+                  icon:
+                    '--mdc-icon-size': 40px
+              - entity: input_boolean.dummy
+                name: false
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/scenario/
+                icon: hass:movie-open-outline
+                style:
+                  button:
+                    background: rgba(255,255,255,0)
+                    border-radius: 50px
+                    padding: 10px
+                    box-shadow: >-
+                      0px 8px 15px rgba(0, 0, 0, 0.2),  0 0 10px
+                      rgba(255,255,255,.5)
+                    backdrop-filter: blur(10px);
+                    color: rgba(251, 125, 85,0.7)
+                  icon:
+                    '--mdc-icon-size': 40px
