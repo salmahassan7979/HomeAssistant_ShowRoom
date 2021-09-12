@@ -104,6 +104,17 @@ knx:
     host: 192.168.1.138         #ip of knx gateway
     port: 3671
     local_ip: 192.168.1.180    #ip of HA
+    
+homekit:
+- name: HASS Bridge 1
+  port: 56332
+  filter:
+    include_domains:
+      - climate
+    include_entities: !include homekit_entities.yaml
+   #- light.cinema_cinema_light_114
+   #- light.cinema_front_left_spots_135
+ 
 ##################################################################################################
 ############Sensors############     
 binary_sensor:
