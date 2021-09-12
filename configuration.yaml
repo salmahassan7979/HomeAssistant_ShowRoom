@@ -31,6 +31,8 @@ group: !include groups.yaml
 cover: !include covers.yaml
 light: !include lights.yaml
 
+############ Restful API ############
+rest_command: !include rest_command.yaml
 ############in climate group, you have to download climate_group from HACS integration
 climate: 
   - platform: climate_group
