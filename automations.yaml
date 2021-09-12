@@ -1,0 +1,80 @@
+################################################# Set theme  ##########################################
+
+    
+- id: '1627894507538'
+  alias: set_theme
+  trigger:
+  - platform: state
+    entity_id: input_select.themes
+  - platform: homeassistant
+    event: start
+  action:
+  - service: browser_mod.set_theme
+    data_template:
+      theme: '{{ states.input_select.themes.state }}'
+  mode: single
+################################################# Fibaro Check  ##########################################
+
+- id: '1628506393892'
+  alias: fibaro config problem
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.hc_ground_temp
+    to: 1True
+  - platform: state
+    entity_id: sensor.hc_basement_temp
+    to: 1True
+  - platform: state
+    entity_id: sensor.hc_first_temp
+    to: 1True
+  - platform: state
+    entity_id: sensor.hc_roof_temp
+    to: 1True
+  condition: []
+  action:
+  - data: {}
+    service: homeassistant.restart
+  mode: single
+  
+################################################# Restart HA  ##########################################
+- id: '1628509048427'
+  alias: Restart HA
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00:00
+  condition: []
+  action:
+  - service: homeassistant.restart
+  mode: single
+################################################# Fibaro controller Check with sonoff ##########################################
+
+- id: '1629642698213'
+  alias: Basement controller checker
+  description: ''
+  trigger:
+  - platform: template
+    value_template: ''
+    id: '{{states.sensor.hc_basement_temp.state  != "1True" }}'
+  - platform: homeassistant
+    event: start
+  condition:
+  - condition: template
+    value_template: '{{states.sensor.hc_basement_temp.state  != "1True" }}'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.sonoff_basement
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_on
+    target:
+      entity_id: switch.sonoff_basement
+  mode: single
+  
+  
+  
