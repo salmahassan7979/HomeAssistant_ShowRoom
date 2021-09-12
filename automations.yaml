@@ -351,3 +351,22 @@
     target:
       entity_id: automation.landscape_off_time
   mode: single
+
+
+################################################# Intercom Notification  ##########################################
+- id: '1623149662937'
+  alias: notify intercom
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: ' switch.unknown_325_1_329'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_a_iphone_12
+    data:
+      message: There is Someone Outside 🚪🔔
+      data:
+        url: /intercom-camera/camera
+        entity_id: camera.fisheye
+  mode: single
