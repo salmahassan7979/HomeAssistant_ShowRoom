@@ -1,0 +1,16 @@
+  
+  - url: http://192.168.1.31/api/  
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l 
+ 
+  - url: http://192.168.1.33/api/  
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l 
+  
+  - url: http://192.168.1.32/api/   
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l 
+ 
+  - url: http://192.168.1.33/api/  
+    username: aswar21.fibaro@gmail.com
+    password: Dcs502010-l 
