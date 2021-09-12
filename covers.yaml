@@ -1,3 +1,4 @@
+################################################# Add all of the villa's shutters and curtains ##########################################
   - platform: group
     name: Villa Shutters
     entities:
@@ -19,7 +20,7 @@
       - cover.room_2_terrace_shutter_120
       - cover.stairs_sh9_216
       - cover.stairs_sh1_basement_stairs_79
-      
+################################################# add all of room's shutter and curtain ##########################################
   - platform: group
     name: Lobby shutters
     entities:
