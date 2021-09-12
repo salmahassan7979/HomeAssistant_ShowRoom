@@ -1,0 +1,71 @@
+  - platform: group
+    name: Villa Shutters
+    entities:
+      - cover.office_sh1_shutter_115
+      - cover.lobby_sh3_shutter_186
+      - cover.lobby_sh2_curtain_181
+      - cover.dining_sh5_shutter_196
+      - cover.dining_sh4_curtain_191
+      - cover.reception_sh7_shutter_206
+      - cover.reception_sh6_curtain_201
+      - cover.kitchen_sh8_shutter_211
+      - cover.living_room_sh2_shutter_65
+      - cover.living_room_sh1_curtain_55
+      - cover.master_room_sh4_terrace_75
+      - cover.master_room_sh3_window_shutter_70
+      - cover.room_1_sh5_window_shutter_80
+      - cover.room_1_terrace_shutter_117
+      - cover.room_2_sh6_window_91
+      - cover.room_2_terrace_shutter_120
+      - cover.stairs_sh9_216
+      - cover.stairs_sh1_basement_stairs_79
+      
+  - platform: group
+    name: Lobby shutters
+    entities:
+      - cover.lobby_sh3_shutter_186
+      - cover.lobby_sh2_curtain_181
+      
+  - platform: group
+    name: Dinning shutters
+    entities:
+      - cover.dining_sh5_shutter_196
+      - cover.dining_sh4_curtain_191
+      
+  - platform: group
+    name: Reception shutters
+    entities:
+      - cover.reception_sh7_shutter_206
+      - cover.reception_sh6_curtain_201
+      
+  - platform: group
+    name: Living Room  shutters
+    entities:
+      - cover.living_room_sh2_shutter_65
+      - cover.living_room_sh1_curtain_55
+      
+  - platform: group
+    name: Master Room  shutters
+    entities:
+      - cover.master_room_sh4_terrace_75
+      - cover.master_room_sh3_window_shutter_70  
+      
+  - platform: group
+    name: Stairs  shutters
+    entities:
+      - cover.stairs_sh9_216
+      - cover.stairs_sh1_basement_stairs_79 
+  - platform: group
+    name: j&j shutters
+    entities:
+      - cover.room_1_sh5_window_shutter_80
+      - cover.room_1_terrace_shutter_117
+
+  - platform: group
+    name: monmon shutters
+    entities:
+      - cover.room_2_sh6_window_91
+      - cover.room_2_terrace_shutter_120
+      
+      
+      
