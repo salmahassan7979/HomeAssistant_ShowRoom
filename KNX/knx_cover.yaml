@@ -1,0 +1,137 @@
+                                     ######### TEMPLETE #########
+# FLOOR - ZONE = LOAD TYPE 
+  # - name: "Test"
+    #   move_long_address: '0/1/0'                    # movement 
+    #   move_short_address: '0/1/3'                   # slat positon
+    #   stop_address: '0/1/1'                         # Step/stop 
+    #   position_address: '0/1/2'                     # Height Position
+    #   position_state_address: '0/1/4'               # Status feedback of height Feedback
+    #   travelling_time_down: 31
+    #   travelling_time_up: 31
+      
+                                    #########          #########
+
+                                 # Ground Floor - Office 
+ 
+    - name: "Office Shutter "                                          
+      move_long_address: '0/1/0'                    # movement 
+      move_short_address: '0/1/3'                   # slat positon
+      stop_address: '0/1/1'                         # Step/stop 
+      position_address: '0/1/2'                     # Height Position
+      position_state_address: '0/1/4'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    
+                                  # Ground Floor - Salon  
+   
+    - name: "Salon Main Shutter "                                          
+      move_long_address: '2/1/0'                    # movement 
+      move_short_address: '2/1/3'                   # slat positon
+      stop_address: '2/1/1'                         # Step/stop 
+      position_address: '2/1/2'                     # Height Position
+      position_state_address: '2/1/4'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    - name: "Salon Side Left Shutter "                                          
+      move_long_address: '2/1/5'                    # movement 
+      move_short_address: '2/1/8'                   # slat positon
+      stop_address: '2/1/6'                         # Step/stop 
+      position_address: '2/1/7'                     # Height Position
+      position_state_address: '2/1/9'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    - name: "Salon Side Right Shutter "                                          
+      move_long_address: '2/1/10'                    # movement 
+      move_short_address: '2/1/13'                   # slat positon
+      stop_address: '2/1/11'                         # Step/stop 
+      position_address: '2/1/12'                     # Height Position
+      position_state_address: '2/1/14'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+      
+                                 # Ground Floor - Lobby 
+ 
+    - name: " Lobby Shutter "                                          
+      move_long_address: '3/1/0'                    # movement 
+      move_short_address: '3/1/3'                   # slat positon
+      stop_address: '3/1/1'                         # Step/stop 
+      position_address: '3/1/2'                     # Height Position
+      position_state_address: '3/1/4'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    
+                                 # Ground Floor - Reception  
+   
+    - name: "Salon Main Shutter "                                          
+      move_long_address: '4/1/0'                    # movement 
+      move_short_address: '4/1/3'                   # slat positon
+      stop_address: '4/1/1'                         # Step/stop 
+      position_address: '4/1/2'                     # Height Position
+      position_state_address: '4/1/4'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    - name: "Salon Side Left Shutter "                                          
+      move_long_address: '4/1/5'                    # movement 
+      move_short_address: '4/1/8'                   # slat positon
+      stop_address: '4/1/6'                         # Step/stop 
+      position_address: '4/1/7'                     # Height Position
+      position_state_address: '4/1/9'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+    - name: "Salon Side Right Shutter "                                          
+      move_long_address: '4/1/10'                    # movement 
+      move_short_address: '4/1/13'                   # slat positon
+      stop_address: '4/1/11'                         # Step/stop 
+      position_address: '4/1/12'                     # Height Position
+      position_state_address: '4/1/14'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+      
+                                    # Ground Floor - Dining 
+ 
+    - name: " Dining Shutter "                                          
+      move_long_address: '5/1/0'                    # movement 
+      move_short_address: '5/1/3'                   # slat positon
+      stop_address: '5/1/1'                         # Step/stop 
+      position_address: '5/1/2'                     # Height Position
+      position_state_address: '5/1/4'               # Status feedback of height Feedback
+      travelling_time_down: 31
+      travelling_time_up: 31
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
