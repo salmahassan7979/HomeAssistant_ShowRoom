@@ -76,5 +76,98 @@
       entity_id: switch.sonoff_basement
   mode: single
   
+################################################# Notification to service mail  ##########################################  
   
-  
+- id: '1630243597324'
+  alias: 'Service Notify Gmail '
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{states.sensor.memory_use_percent.state |int >= 90 }}'
+  - platform: template
+    value_template: '{{states.sensor.processor_use_percent.state |int >= 90 }}'
+  - platform: template
+    value_template: '{{states.sensor.disk_use_percent_home.state |int >= 80 }}'
+  - platform: template
+    value_template: '{{states.sensor.processor_temperature.state |int >= 80 }}'
+  - platform: template
+    value_template: '{{states.sensor.hc_basement_temp.state  != "1True" }}'
+  - platform: template
+    value_template: '{{states.sensor.hc_first_temp.state  != "1True" }}'
+  - platform: template
+    value_template: '{{states.sensor.hc_ground_temp.state  != "1True" }}'
+  - platform: template
+    value_template: '{{states.sensor.hc_roof_temp.state  != "1True" }}'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.memory_use_percent.state |int >= 90 }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: RAM Up To 90%
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.processor_use_percent.state |int >= 90 }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: Processor Up To 90%
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.disk_use_percent_home.state |int >= 80 }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: Disk Up To 80% please Clear Dummy Data
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.processor_temperature.state |int >= 80 }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: Processor Temperature Up To 80 C the controller will be Fire
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.hc_first_temp.state  != "1True" }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: First Floor Fibaro Connection with HA might be issue, Please check
+            it
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.hc_ground_temp.state  != "1True" }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: Ground Floor Fibaro Connection with HA might be issue, Please check
+            it
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.hc_basement_temp.state  != "1True" }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: basement Floor Fibaro Connection with HA might be issue, Please
+            check it
+          title: Attention!!
+    - conditions:
+      - condition: template
+        value_template: '{{states.sensor.hc_roof_temp.state  != "1True" }}'
+      sequence:
+      - service: notify.gmail
+        data:
+          message: Roof Floor Fibaro Connection with HA might be issue, Please check
+            it
+          title: Attention!!
+    default: []
+  mode: single
