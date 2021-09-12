@@ -1,0 +1,7 @@
+
+  motion-sensors-stairs:
+    name: motion-sensors-stairs
+    entities:
+      - binary_sensor.stairs_ms_6_148
+      - binary_sensor.roof_stairs_roof_stairs_71
+      - binary_sensor.stairs_ms_5_110
