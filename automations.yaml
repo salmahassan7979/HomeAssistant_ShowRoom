@@ -209,3 +209,145 @@
       - light.first_floor_stairs_ground_stairs_light_210
       - light.first_floor_stairs_first_stairs_light_211
   mode: single
+
+################################################# Alarm Action  ##########################################
+
+- id: '1594717388198'
+  alias: Alarm action
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.entrance_entrance_m_s_143
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.corridor_first_stairs_m_s_60
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.dining_dining_shutter_m_s_137
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.dining_dining_window_m_s_131
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.entrance_villa_door_sensor_235
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.living_room_roof_motion_sensor_78
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.master_room_master_room_m_s_72
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.reception_reception_m_s_125
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.stairs_first_stairs_m_s_284
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: armed_home
+  action:
+  - data: {}
+    entity_id: switch.unknown_siren_230
+    service: switch.turn_on
+  - data:
+      message: Take Care !! someone in your Home 🚨🚨🚨
+    service: notify.mobile_app_elatik_my_iphonex
+    
+################################################# Disarm Action  ##########################################  
+- id: '1594717997024'
+  alias: Disarm action
+  description: ''
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    from: armed_home
+    platform: state
+    to: disarmed
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.unknown_siren_230
+    service: switch.turn_off
+  - data:
+      message: Your Home is Disarmed 🔓 🔓
+    service: notify.mobile_app_elatik_my_iphonex
+################################################# Arming Notification  ##########################################    
+- id: '1595770887755'
+  alias: Arming notification
+  description: ''
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    from: disarmed
+    platform: state
+    to: armed_home
+  condition: []
+  action:
+  - data:
+      message: Home is in Security Mode 🔒 🔒
+    service: notify.mobile_app_elatik_my_iphonex
+################################################# Gas Detection  ##########################################    
+- id: '1594722773572'
+  alias: Gas detection
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.kitchen_264_0_265
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.utilities_outdoor_gas_valve_219
+    service: switch.turn_off
+    
+################################################# Landscape lights on  ##########################################    
+- id: '1622375857858'
+  alias: landscape lights1
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.landscape
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.unknown_258_2_263
+      - light.unknown_258_1_262
+      - light.outdoor_206_1_210
+  - service: automation.turn_on
+    target:
+      entity_id: automation.landscape_off_time
+  mode: single 
+  
+#################################################  Landscape lights off  ##########################################
+
+- id: '1622387589369'
+  alias: landscape off time
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.landscape_time_off
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.unknown_258_2_263
+      - light.unknown_258_1_262
+      - light.outdoor_206_1_210
+  - service: automation.turn_off
+    target:
+      entity_id: automation.landscape_off_time
+  mode: single
