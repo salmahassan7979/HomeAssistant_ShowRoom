@@ -1,0 +1,252 @@
+ios-custom-light-mod:
+  # Global
+  background-image: "center / cover no-repeat fixed url('/hacsfiles/themes/homekit-bg-red-alt.jpg')"
+  lovelace-background: var(--background-image)
+  primary-color: "#ff9409"
+  light-primary-color: "#2c2c2e"
+  primary-background-color: "#e5e5ea"
+  secondary-background-color: rgba(255, 255, 255, 0.9)
+  divider-color: "#8e8e93"
+  accent-color: rgba(255, 159, 9, 1)
+  # Text
+  primary-text-color: "#464a47"
+  secondary-text-color: "#000000"
+  text-primary-color: "#FFF"
+  disabled-text-color: "#555"
+  text-dark-color: "#FFF"
+  # Sidebar Menu
+  sidebar-background-color: var(--primary-background-color)
+  sidebar-icon-color: var(--light-primary-color)
+  sidebar-text-color: var(--light-primary-color)
+  sidebar-selected-background-color: var(--primary-background-color)
+  sidebar-selected-icon-color: "#8e8e93"
+  sidebar-selected-text-color: var(--sidebar-selected-icon-color)
+  # States and Badges
+  state-icon-color: "#FFF"
+  state-icon-active-color: rgba(255, 214, 10, 1)
+  state-icon-unavailable-color: var(--disabled-text-color)
+  paper-item-icon-active-color: rgba(255, 214, 10, 1)
+  # Sliders
+  paper-slider-knob-color: "#FFF"
+  paper-slider-knob-start-color: var(--paper-slider-knob-color)
+  paper-slider-pin-color: var(--paper-slider-knob-color)
+  paper-slider-active-color: "#007aff"
+  paper-slider-secondary-color: var(--paper-slider-knob-color)
+  paper-slider-container-color: rgba(255, 255, 255, 0.5)
+  paper-slider-font-color: "#000"
+  ha-slider-background: none !important
+  # Labels
+  label-badge-background-color: "#23232E"
+  label-badge-text-color: "#F1F1F1"
+  label-badge-red: rgba(255, 149, 9, 0.7)
+  # Cards
+  card-background-color: var(--secondary-background-color)
+  paper-listbox-background-color: var(--primary-background-color)
+  ha-card-border-radius: 20px
+  ha-card-background: rgba(245, 245, 245, 0.4)
+  paper-card-background-color: var(--ha-card-background)
+  card-mod-view-yaml: |
+          .: |
+            hui-view {
+              background: none !important;
+              min-height: 100vh;
+            }
+
+          grid-layout:
+            $: |
+              #root {
+                margin: 0 !important;
+              }
+
+          #################################################
+          #                                               #
+          #               GRID CARD HEADER                #
+          #                                               #
+          #################################################
+
+          "grid-layout$":
+            hui-grid-card:
+              $: |
+                h1 {
+                  line-height: 0 !important;
+                  padding: 1vw 0 2vw 0 !important;
+                  font-weight: 500 !important;
+                }
+
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  h1 {
+                    font-size: 3.3vw !important;
+                    line-height: 1.1vw !important;
+                  }
+                }
+
+                /* phone */
+                @media screen and (max-width: 800px) {
+                  h1 {
+                    font-size: 5.5vw !important;
+                    line-height: 6vw !important;
+                    margin: 2vw 0 0 0 !important;
+                  }
+                }
+
+          #################################################
+          #                                               #
+          #             SIDEBAR MARKDOWN CARD             #
+          #                                               #
+          #################################################
+
+          "grid-layout$hui-markdown-card:first-of-type":
+            $: |
+              ha-card {
+                background-color: #00000010;
+                border-radius: 0;
+                min-height: 100vh;
+                animation: ha-card 1s forwards;
+              }
+
+              @keyframes ha-card {
+                0%, 100% {
+                  border-right: 0.1vw solid rgba(58, 69, 73, 0.2);
+                }
+              }
+
+              /* phone */
+              @media screen and (max-width: 800px) {
+                ha-card {
+                  background: none;
+                  min-height: 100%;
+                  animation: none;
+                }
+
+            "$ha-card>ha-markdown":
+              .: |
+                ha-markdown {
+                  padding: var(--custom-layout-card-padding) 2vw 0 var(--custom-layout-card-padding) !important;
+                  pointer-events: none;
+                }
+
+                /* phone */
+                @media screen and (max-width: 800px) {
+                  ha-markdown {
+                    padding: 0 !important;
+                  }
+
+              $: |
+                /* clock */
+                p > span {
+                  font-family: SF Text;
+                  font-size: var(--markdown-sidebar-clock-font-size);
+                  font-weight: 200;
+                  line-height: var(--markdown-sidebar-clock-line-height);
+                  letter-spacing: -0.05vw;
+                  margin-left: -0.3vw;
+                  color: var(--ha-card-header-color);
+                }
+
+                /* colon */
+                p > span > span {
+                  position: relative;
+                  top: -.09em;
+                }
+
+                /* text */
+                p {
+                  font-family: SF Display;
+                  font-size: var(--markdown-sidebar-font-size);
+                  line-height: var(--markdown-sidebar-line-height);
+                  font-weight: 300;
+                  letter-spacing: 0.06vw;
+                  color: #6a7377;
+                }
+
+                p > b {
+                  color: var(--ha-card-header-color);
+                }
+
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  p > span {
+                    font-size: calc(var(--markdown-sidebar-clock-font-size) * 1.4 );
+                    line-height: calc(var(--markdown-sidebar-clock-line-height) * 1.4 );
+                  }
+                  p {
+                    font-size: calc(var(--markdown-sidebar-font-size) * 1.4 );
+                    line-height: calc(var(--markdown-sidebar-line-height) * 1.4 );
+                  }
+                }
+
+                /* phone */
+                @media screen and (max-width: 800px) {
+                  p > span {
+                    font-size: calc(var(--markdown-sidebar-clock-font-size) * 2.6 );
+                    line-height: calc(var(--markdown-sidebar-clock-line-height) * 2.6 );
+                  }
+                  p {
+                    font-size: calc(var(--markdown-sidebar-font-size) * 2.6 );
+                    line-height: calc(var(--markdown-sidebar-line-height) * 2.6 );
+                    letter-spacing: 0.16vw;
+                  }
+                }
+
+  card-mod-card: |
+          .card-content {
+            padding: 1.8em 2em 1.8em 2em;
+          }
+
+          .card-header {
+            font-family: SF Text;
+            letter-spacing: 0.005em;
+            font-size: 1.6em;
+            font-weight: 500;
+            padding: 1.25em 0 0 1.68em;
+            line-height: initial;
+            cursor: default;
+          }
+
+          /* * * * * * * * * * * * * * * * * *
+            *                                 *
+            *           BUTTON CARD           *
+            *                                 *
+            * * * * * * * * * * * * * * * * * */
+
+          .type-button {
+            display: block;
+            color: rgb(255, 255, 255);
+            opacity: 0.2;
+            transition: 0.4s;
+          }
+
+          .type-button:hover {
+            opacity: 0.5;
+            transition: none;
+          }
+
+          .type-button:active {
+            opacity: 0.7;
+            transition: none;
+          }
+  # Toggles
+  paper-toggle-button-checked-button-color: "#484848"
+  paper-toggle-button-checked-bar-color: "#484848"
+  paper-toggle-button-unchecked-button-color: var(--paper-toggle-button-checked-button-color)
+  paper-toggle-button-unchecked-bar-color: var(--disabled-text-color)
+  # Table row
+  table-row-background-color: var(--primary-background-color)
+  table-row-alternative-background-color: var(--secondary-background-color)
+  # Switches
+  switch-checked-color: "#30d257"
+  switch-checked-track-color: "#34c759"
+  switch-checked-button-color: "#FFF"
+  # Other
+  paper-dialog-background-color: rgba(200, 200, 200, 0.8)
+  paper-item-icon-color: "#333333"
+  more-info-header-background: rgba(230, 230, 230, 0.5)
+  lumo-body-text-color: var(--primary-text-color)
+  app-header-background-color: rgba(249, 129, 97, 0.4)
+  markdown-code-background-color: "#FFFFFF"
+  code-editor-background-color: "#FFF"
+  # Custom
+  mcg-title-letter-spacing: .15em
+  mini-media-player-base-color: white
+  mini-media-player-icon-color: white
