@@ -245,40 +245,36 @@ alarm_control_panel:
 
 camera:
   - platform: ffmpeg
-    name: Camera 1
+    name: Default Camera 
     input: rtsp://admin:Dcs502010-l@192.168.1.21:554
   - platform: ffmpeg
-    name: Camera 2
+    name: Hikvision Camera
     input: rtsp://admin:Dcs502010-l@192.168.1.22:554/Streaming/Channels/101
   - platform: ffmpeg
-    name: Camera 3
-    input: rtsp://admin:Dcs502010-l@192.168.1.23:554/Streaming/Channels/101
+    name: Samsung Camera
+    input: rtsp://admin:Dcs502010-l@192.168.1.21:554/profile4/media.smp
+  - platform: mjpeg
+    name: Panasonic Camera
+    still_image_url: http://192.168.100.241/image.jpg
+    mjpeg_url: http://admin:Ayman%40123@192.168.100.241/axis-cgi/mjpg/video.cgi?date=1&clock=1&camera=0&resolution=220x140
+    
   - platform: ffmpeg
-    name: Camera 4
-    input: rtsp://admin:Dcs502010-l@192.168.1.24:554/Streaming/Channels/101
+    name: Ezviz Camera
+    input: rtsp://admin:GXEAHM@192.168.86.112:554/H.264
+    
+  - platform: generic
+    name: EZ-IP Camera
+    still_image_url: http://192.168.1.206/jpg/image.jpg
+    stream_source: rtsp://admin:admin123@192.168.1.206/cam/realmonitor?channel=1&subtype=00&authbasic=YWRtaW46YWRtaW4xMjM=
+  - platform: mjpeg
+    name: Dlink Camera 1
+    still_image_url: http://192.168.1.65/image.jpg
+    mjpeg_url:  http://admin:dcs5020l@192.168.1.65/mjpeg.cgi?user=admin&password=dcs5020l&channel=6
   - platform: ffmpeg
-    name: Camera 5
-    input: rtsp://admin:Dcs502010-l@192.168.1.25:554/Streaming/Channels/101
-  - platform: ffmpeg
-    name: Camera 6
-    input: rtsp://admin:Dcs502010-l@192.168.1.26:554/Streaming/Channels/101
-  - platform: ffmpeg
-    name: Camera 7
-    input: rtsp://admin:Dcs502010-l@192.168.1.27:554/Streaming/Channels/101
-  - platform: ffmpeg
-    name: Camera 8
-    input: rtsp://admin:Dcs502010-l@192.168.1.28:554/Streaming/Channels/101
-  - platform: proxy
-    entity_id: camera.camera_4
-    max_stream_width: 360
-    max_image_width: 720
-    image_refresh_rate: 3.0
-    name: camera4 stream
-  - platform: proxy
-    entity_id: camera.camera_5
+    name: Dlink Camera 2
+    input: rtsp://admin:dcs5020l@192.168.1.44/live3.sdp
+ 
 
-    image_refresh_rate: 3.0
-    name: camera5 stream
 
 ################################################# Cameras proxy   ##########################################     
   - platform: proxy
@@ -291,84 +287,9 @@ camera:
     max_stream_height: 320
     image_left: 100
     image_refresh_rate: 2.0   
+
     
-  - platform: proxy
-    entity_id: camera.camera_2
-    name: camera2 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0  
-    
-  - platform: proxy
-    entity_id: camera.camera_3
-    name: camera3 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0  
-    
-  - platform: proxy
-    entity_id: camera.camera_4
-    name: camera4 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0  
-    
-  - platform: proxy
-    entity_id: camera.camera_5
-    name: camera5 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0 
-    
-  - platform: proxy
-    entity_id: camera.camera_6
-    name: camera6 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0
-    
-  - platform: proxy
-    entity_id: camera.camera_7
-    name: camera7 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0  
-    
-    
-  - platform: proxy
-    entity_id: camera.camera_8
-    name: camera8 stream
- 
-    max_image_width: 480
-    max_image_height: 320
-    max_stream_width: 480
-    max_stream_height: 320
-    image_left: 100
-    image_refresh_rate: 2.0  
+
 ################################################# Media  ##########################################     
     
 webostv:
@@ -398,23 +319,6 @@ media_player:
        video1: "VIDEO1"
        video2: "VIDEO2"
 
-  - platform: onkyo
-    host: 192.168.1.55
-    name: office onkyo
- #   max_volume : 200
-    sources:
-       pc: "HTPC"
-       dvd: "DVD"
-       cd: "CD"
-       tv-tape: "TV-Tape"
-       tv-cd: "TV-CD"
-       bd-dvd: "BD-DVD"
-       usb: "USB"
-       multi-ch: "Multi-CH"
-       universal-port: "UNIVERSAL-PORT"
-       video1: "VIDEO1"
-       video2: "VIDEO2"
-       
 
 ############ Samsung Tizen TV ############
 samsungtv_smart:
