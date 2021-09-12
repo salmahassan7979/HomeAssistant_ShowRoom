@@ -414,3 +414,19 @@ media_player:
        universal-port: "UNIVERSAL-PORT"
        video1: "VIDEO1"
        video2: "VIDEO2"
+       
+
+############ Samsung Tizen TV ############
+samsungtv_smart:
+# Family TV
+  - host: 192.168.100.4
+    source_list: '{"TV": "ST_TV", "HDMI1": "ST_HDMI1", "HDMI2": "ST_HDMI2", "HDMI3": "ST_HDMI3"}'
+    app_list: '{"Netflix": "3201907018807/org.tizen.netflix-app", "YouTube": "111299001912/9Ur5IzDKqV.TizenYouTube", "Spotify": "rJeHak5zRg.Spotify" ,"Prime Video": "3201910019365/org.tizen.primevideo"}'
+
+
+
+############ Logger for any integration ############
+logger:
+  default: info
+  logs:
+    homeassistant.components.smartthings: debug       
