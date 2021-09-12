@@ -1,0 +1,37 @@
+# - name: Ground AC
+#   on_off_address: '0/3/0'                                            #Ground AC Power( Interra )
+#   on_off_state_address: '0/3/10'                                     #Ground AC Power Feedback (StatusAC Switch ( ON/OFF))
+#   temperature_address: '0/5/0'                                       #Actual Tempreature From MutltiTouch
+#   target_temperature_state_address: '0/3/1'                          #Setpoint (Setpoint Output from Multi touch , Setpoint Tempreature from Interra)
+#   target_temperature_address: '0/3/5'                                #Setpoint ( Setpoint Input from Multi Touch , Status AC Temperature from Interra)
+#   heat_cool_address: '0/3/6'                                         #Heat/cool Output ( Multi TOuch Heating / Cooling , AC Mode - On CMD for cooling Intera)
+#   heat_cool_state_address: '0/3/7'                                   #Heat/cool Input ( Multi TOuch Heating / Cooling , Status AC Mode - On CMD for cooling Intera)
+#   operation_mode_address: '0/3/11'                                   #Operation Mode Input ( From Multi Touch) For Presets 
+#   operation_mode_state_address: '0/3/12'                             #Operation Mode OutPut ( From Multi ) For Presets 
+#   min_temp: 20.0                                                     #SetPoint Min Scale 
+#   max_temp: 28.0                                                     #SetPoint Max Scale 
+#  #dummy devices using light commands
+#  #name: "Ground AC FAN Speed AC"
+#     #address: '0/3/0'                                       #AC Power ( Interra and Multi Touch)
+#      #state_address: '0/3/10'                                #AC Power State ( Interra and Multi TOuch)
+#      #brightness_address: '0/3/14'                           #AC Fan Speed In ( Status AC Mode Interra and Fan Step Output Multi TOuch )
+#      #brightness_state_address: '0/3/3'                      #Ac Fan Speed (AC Fan speed Interra and Fan step Output Multi touch
+
+- name: Office AC
+  on_off_address: '0/3/0'                                            #Ground AC Power( Interra )
+  on_off_state_address: '0/3/1'                                     #Ground AC Power Feedback (StatusAC Switch ( ON/OFF))
+  target_temperature_state_address: '0/3/3'                          #Setpoint (Setpoint Output from Multi touch , Setpoint Tempreature from Interra)
+  target_temperature_address: '0/3/4'                                #Setpoint ( Setpoint Input from Multi
+  temperature_address: '0/3/9'                                       #Actual Tempreature From MutltiTouch
+  min_temp: 20.0                                                     #SetPoint Min Scale 
+  max_temp: 28.0                                                     #SetPoint Max Scale 
+#  - name: "Office AC FAN Speed "
+#   address: '0/3/0'                                       #AC Power ( Interra and Multi Touch)
+#   state_address: '0/3/1'                                #AC Power State ( Interra and Multi TOuch)
+#   brightness_address: '0/3/6'                           #AC Fan Speed Input ( Status AC Mode Interra and Fan Step Output Multi TOuch )
+#   brightness_state_address: '0/3/5'                      #Ac Fan Speed Output(AC Fan speed Interra and Fan step Output Multi touch
+# - name: "Office AC Swing "
+#   address: '0/3/8'                                       #AC Swing Inetra
+#   state_address: '0/3/9'            
+
+
