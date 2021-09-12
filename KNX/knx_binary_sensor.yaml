@@ -1,0 +1,8 @@
+    - name: "Office Motion Sensor"
+      state_address: "0/2/0"
+    - name: "Entrance Motion Sensor"
+      state_address: "1/2/0"      
+    - name: "Lobby Motion Sensor"
+      state_address: "3/2/0"      
+    - name: "Dining Motion Sensor"
+      state_address: "5/2/0"      
