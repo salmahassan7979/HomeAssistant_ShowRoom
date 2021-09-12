@@ -2,18 +2,23 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-############duckdns_portforward############
+############ duckdns_portforward ############
  http:
   base_url: https://aswar21.duckdns.org
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
-
+################################################# Enable browser-mod ##########################################
+browser_mod:
+    prefix: 'browser_mod_'
+    
 stream:
 
 weather:
 # Text to speech
 tts:
   - platform: google_translate
+  
+
 frontend:
         themes: !include_dir_merge_named themes
           
@@ -24,7 +29,9 @@ scene: !include scenes.yaml
 ############Groups############
 group: !include groups.yaml
 cover: !include covers.yaml
-#light: !include lights.yaml
+light: !include lights.yaml
+
+############in climate group, you have to download climate_group from HACS integration
 climate: 
   - platform: climate_group
     name: Villa AC
@@ -58,8 +65,9 @@ notify:
       - "acsacs429@gmail.com"
 
     sender_name: "Aswar21_HomeAssistant"
-    
-############Gateways############    
+################################################# Gateways ##########################################   
+#in this section, select the desired gateway to configure
+############ Fibaro ############    
 fibaro:
   gateways: !include fibaro.yaml
             #   - url: http://192.168.1.32/api/   
@@ -75,15 +83,28 @@ fibaro:
             #     username: aswar21.fibaro@gmail.com
             #     password: Dcs502010-l 
 
-  
+############ Sonoff ############   
 sonoff:
   username: aswar21.fibaro@gmail.com
   password: Dcs502010-l
   mode: local
   reload: always      
+############ KNX ############ 
 
+knx:
 
-
+  cover: !include /config/KNX/knx_cover.yaml
+  light: !include /config/KNX/knx_light.yaml
+  binary_sensor: !include /config/KNX/knx_binary_sensor.yaml
+  climate: !include /config/KNX/knx_climate.yaml
+  sensor: !include /config/KNX/knx_sensor.yaml
+  switch : !include /config/KNX/knx_switch.yaml
+ 
+  tunneling:
+    host: 192.168.1.138         #ip of knx gateway
+    port: 3671
+    local_ip: 192.168.1.180    #ip of HA
+##################################################################################################
 ############Sensors############     
 binary_sensor:
                           #check first floor controller connection to the network
@@ -206,10 +227,7 @@ alarm_control_panel:
     armed_home:
       arming_time: 0
       delay_time: 0
-################################################# Enable browser-mod ##########################################
-browser_mod:
-    prefix: 'browser_mod_'
-    
+
 ################################################# Cameras  ##########################################    
 
 camera:
