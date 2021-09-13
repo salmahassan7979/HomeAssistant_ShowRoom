@@ -289,6 +289,17 @@ camera:
     image_refresh_rate: 2.0   
 
     
+################################################## Human detection  ##################################################################           
+    
+image_processing:
+  - platform: doods
+    url: "http://192.168.1.245:8080"
+    scan_interval: 0.5
+    detector: tensorflow         #-----------------------------------you can change this to (defualt)
+    source:
+      - entity_id: camera.camera1
+    file_out: /config/www/camera1.jpg
+    confidence: 80
 
 ################################################# Media  ##########################################     
     
