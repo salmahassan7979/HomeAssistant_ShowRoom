@@ -20,29 +20,29 @@ We will run through a series of steps to create our windows NTP server. It's sim
 ### Setting up Server
 1. **<a name="open_services"></a>Open Services.**  
      <a name="services"></a>Press _Windows + R_ and type `services.msc` **_or_** press the windows key and search for **Services**.  
-    <img src="./Images/ScreenShots/services_ss.jpg" alt="Services Run Image" width="300"/> <img src="./Images/ScreenShots/services_window.jpg" alt="Services Window Image" width="350"/>
+    <img src="../Images/ScreenShots/services_ss.jpg" alt="Services Run Image" width="300"/> <img src="../Images/ScreenShots/services_window.jpg" alt="Services Window Image" width="350"/>
 2. **Stop the "Windows Time" Service.**   
      Scroll down to the "Windows Time" Service. **Right click** on it and press **stop**.  
-    <img src="./Images/ScreenShots/time_service.jpg" alt="Windows Time Service" width="500"/>
+    <img src="../Images/ScreenShots/time_service.jpg" alt="Windows Time Service" width="500"/>
 3. **Open Registry.**   
     Press _Windows + R_ and type `regedit` **_or_** press the windows key and search for **Registry Editor**.  
-    <img src="./Images/ScreenShots/regedit_ss.jpg" alt="Regedit Run Image" width="300"/> <img src="./Images/ScreenShots/regedit_window.jpg" alt="Regedit Window Image" width="350"/>
+    <img src="../Images/ScreenShots/regedit_ss.jpg" alt="Regedit Run Image" width="300"/> <img src="../Images/ScreenShots/regedit_window.jpg" alt="Regedit Window Image" width="350"/>
 4. **Make Address Bar Visible.**   
     Click on **View** and make sure that **"Address Bar"** is checked.  
-    <img src="./Images/ScreenShots/address_bar_check.jpg" alt="Address Bar is Checked" width="300"/>
+    <img src="../Images/ScreenShots/address_bar_check.jpg" alt="Address Bar is Checked" width="300"/>
 5. **Go to NTP.**   
     **Enter** the following address in the **Address Bar**.  
     `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer`  
-    <img src="./Images/ScreenShots/ntp_address.jpg" alt="NTP Address" width="350"/>
+    <img src="../Images/ScreenShots/ntp_address.jpg" alt="NTP Address" width="350"/>
 6. **Enable.**   
     Double click on **"Enable"** and change the **"Value data" to 1**.  
-    <img src="./Images/ScreenShots/ntp_enable.jpg" alt="NTP value changed to 1" width="400"/>
+    <img src="../Images/ScreenShots/ntp_enable.jpg" alt="NTP value changed to 1" width="400"/>
 7. **Go to Config.**   
     **Enter** the following address in the **Address Bar** .  
     `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\W32Time\Config`  
 8. **Set AnnounceFlags.**  
     Double Click on **"AnnounceFlags"** and **"Value data" to 5**.  
-    <img src="./Images/ScreenShots/announce_value.jpg" alt="Address Bar is Checked" width="400"/>
+    <img src="../Images/ScreenShots/announce_value.jpg" alt="Address Bar is Checked" width="400"/>
 9. **Go to Local NTP.**  
     **Enter** the following address in the **Address Bar**.
     `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters`
@@ -50,13 +50,13 @@ We will run through a series of steps to create our windows NTP server. It's sim
     Double click on **LocalNTP** and change the **"Value Data" to 1**. <a name="localntp"></a>  
     _If you can't find "LocalNTP":_
       - **Right click** in an empty space and click **New > DWORD (32-bit) Value**.  
-          <img src="./Images/ScreenShots/new_dword.jpg" alt="New > DWORD" width="300"/>
+          <img src="../Images/ScreenShots/new_dword.jpg" alt="New > DWORD" width="300"/>
       - **Set name** to **`LocalNTP`** (without spaces/case sensitive).  
-          <img src="./Images/ScreenShots/create_localntp.jpg" alt="Local NTP Name" width="350"/>
+          <img src="../Images/ScreenShots/create_localntp.jpg" alt="Local NTP Name" width="350"/>
       - Change Value Data to 1 like [above](#localntp)
 11. **Run the "Windows Time" Service.**   
     [Open Services](#open_services), right click on the **"Windows Time" service** and click **start**.  
-    <img src="./Images/ScreenShots/run_time_service.jpg" alt="Run Time Service" width="500"/>
+    <img src="../Images/ScreenShots/run_time_service.jpg" alt="Run Time Service" width="500"/>
 
 **Recommended: _If the NTP Server stops after some time, you can try to try the [additional troubleshooting steps](#additional-troubleshooting-steps)_**
  
@@ -66,23 +66,23 @@ Till now, we've created the server. However, **the firewall blocks the NTP serve
 
 1. **Open Windows Firewall.**  
     Press _Windows + R_ and type `wf.msc` **_or_** press the windows key and search for **Windows Defender Firewall with Advanced Security**.  
-    <img src="./Images/ScreenShots/wf_run.jpg" alt="Firewall Run Image" width="300"/> <img src="./Images/ScreenShots/wf_window.jpg" alt="Firewall Window Image" width="350"/>
+    <img src="../Images/ScreenShots/wf_run.jpg" alt="Firewall Run Image" width="300"/> <img src="../Images/ScreenShots/wf_window.jpg" alt="Firewall Window Image" width="350"/>
 2. **Add an Inbound Rules.**  
     Click on **"Inbound Rules"** on the far left then click **"New Rule"** on the far right.  
-    <img src="./Images/ScreenShots/inbound_rules.jpg" alt="Inbound Rules" width="300"/> <img src="./Images/ScreenShots/new_inbound_rule.jpg" alt="New Inbound Rule" width="300"/>
+    <img src="../Images/ScreenShots/inbound_rules.jpg" alt="Inbound Rules" width="300"/> <img src="../Images/ScreenShots/new_inbound_rule.jpg" alt="New Inbound Rule" width="300"/>
 3. **Setup Inbound Rule.**<a name="setup_rule"></a>  
    - Check **Port** and then **Next**  
-     <img src="./Images/ScreenShots/port.jpg" alt="Port" width="300"/>
+     <img src="../Images/ScreenShots/port.jpg" alt="Port" width="300"/>
    - Check **UDP** and specify port to be **`123`** then click **Next**  
-     <img src="./Images/ScreenShots/udp_port_number.jpg" alt="UDP and port 123" width="300"/>
+     <img src="../Images/ScreenShots/udp_port_number.jpg" alt="UDP and port 123" width="300"/>
    - Check **Allow the Connection** and click **Next**  
-     <img src="./Images/ScreenShots/allow_connection.jpg" alt="Allow Connection Check" width="300"/>
+     <img src="../Images/ScreenShots/allow_connection.jpg" alt="Allow Connection Check" width="300"/>
    - Check _all options_ then click **Next**  
-     <img src="./Images/ScreenShots/rule_apply.jpg" alt="Domain, Private and Public" width="300"/>
+     <img src="../Images/ScreenShots/rule_apply.jpg" alt="Domain, Private and Public" width="300"/>
    - Name it anything you want (e.g.: `UDP Incoming 123`) then click **Finish**
 4. **Add an Outbound Rule.** 
    Click on **"Outbound Rules"** on the far left then click **"New Rule"** on the far right.  
-   <img src="./Images/ScreenShots/outbound_rule.jpg" alt="Outbound Rules" width="300"/> <img src="./Images/ScreenShots/new_outbound_rule.jpg" alt="New Outbound Rule" width="300"/>  
+   <img src="../Images/ScreenShots/outbound_rule.jpg" alt="Outbound Rules" width="300"/> <img src="../Images/ScreenShots/new_outbound_rule.jpg" alt="New Outbound Rule" width="300"/>  
 5. **Setup Outbound Rule.**  
    Follow the same steps as the [Inbound Rule](#setup_rule)
    
@@ -111,11 +111,11 @@ When choosing an IP Address to set, it's best to set it as the IP Address that y
   Sometimes after the server is up and running, it can stop working for no reason. There are some steps we can do to make sure that the server stays up and auto restarts if there is a problem
   1. Open **"Services"** like [here](#open_services)
   2. Scroll down to **"Windows Time"** and **double click on it**.  
-     <img src="./Images/ScreenShots/windows_time.jpg" alt="Windows Time Service" width="400"/>
+     <img src="../Images/ScreenShots/windows_time.jpg" alt="Windows Time Service" width="400"/>
   3. Set "Startup Type" to **Automatic**.  
-     <img src="./Images/ScreenShots/time_service_startup.jpg" alt="Starup Type Automatic" width="250"/>
+     <img src="../Images/ScreenShots/time_service_startup.jpg" alt="Starup Type Automatic" width="250"/>
   4. Click **Recovery tab** at the top and make sure that all are set to **"Restart the Service"** and click **OK**.  
-     <img src="./Images/ScreenShots/time_recovery.jpg" alt="Recovery Options Set to Restart" width="300"/>
+     <img src="../Images/ScreenShots/time_recovery.jpg" alt="Recovery Options Set to Restart" width="300"/>
 </details>
 
 ## Testing the NTP Server
@@ -174,12 +174,12 @@ There is no indication of whether the configuration has been successfully applie
 2. Plug in the SD Card using an SD Card reader.
 3. Open Linux Reader
 4. Make sure that Address Bar is visible. Click on View and make sure that **Address Bar** is checked.  
-   <img src="./Images/ScreenShots/linux_r_address_check.jpg" alt="View Address Bar" width="200"/>
+   <img src="../Images/ScreenShots/linux_r_address_check.jpg" alt="View Address Bar" width="200"/>
 5. **Open** the following **directory**.  
     `/var/lib/systemd\etc\systemd\`
     - Paste it in the Address Bar or
     - Follow the GUI to reach this path
-   <img src="./Images/ScreenShots/linux_r_path.jpg" alt="Path For timesyncd.conf" width="360"/>
+   <img src="../Images/ScreenShots/linux_r_path.jpg" alt="Path For timesyncd.conf" width="360"/>
 6. Single **click** on `timesyncd.conf` and make sure that the contents of the file is the same as you set [here](#timesync_contents)  
 
 
