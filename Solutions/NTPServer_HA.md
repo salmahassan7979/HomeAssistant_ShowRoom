@@ -169,19 +169,23 @@ At this point, you would be able to open up the Home Assistant UI. When that hap
 To make sure that the configuration has been successfully applied to Home Assistant, you should try the [following steps](#testing-configuration-optional).
    
 ### Testing Configuration (optional)
-There is no indication of whether the configuration has been successfully applied to Home Assistant. To check if the configuration has been applied, you would need to check the files inside the SD Card used for Home Assistant.
-1. Download Linux Reader from [here](https://www.diskinternals.com/linux-reader/).
-2. Plug in the SD Card using an SD Card reader.
-3. Open Linux Reader
-4. Make sure that Address Bar is visible. Click on View and make sure that **Address Bar** is checked.  
-   <img src="../Images/ScreenShots/linux_r_address_check.jpg" alt="View Address Bar" width="200"/>
-5. **Open** the following **directory**.  
-    `/var/lib/systemd\etc\systemd\`
-    - Paste it in the Address Bar or
-    - Follow the GUI to reach this path
-   <img src="../Images/ScreenShots/linux_r_path.jpg" alt="Path For timesyncd.conf" width="360"/>
-6. Single **click** on `timesyncd.conf` and make sure that the contents of the file is the same as you set [here](#timesync_contents)  
-
+<details>
+     <summary> View Here </summary>
+     
+     There is no indication of whether the configuration has been successfully applied to Home Assistant. To check if the configuration has been applied, you would need to check the files inside the SD Card used for Home Assistant.
+     1. Download Linux Reader from [here](https://www.diskinternals.com/linux-reader/).
+     2. Plug in the SD Card using an SD Card reader.
+     3. Open Linux Reader
+     4. Make sure that Address Bar is visible. Click on View and make sure that **Address Bar** is checked.  
+        <img src="../Images/ScreenShots/linux_r_address_check.jpg" alt="View Address Bar" width="200"/>
+     5. **Open** the following **directory**.  
+         `/var/lib/systemd\etc\systemd\`
+         - Paste it in the Address Bar or
+         - Follow the GUI to reach this path
+        <img src="../Images/ScreenShots/linux_r_path.jpg" alt="Path For timesyncd.conf" width="360"/>
+     6. Single **click** on `timesyncd.conf` and make sure that the contents of the file is the same as you set [here](#timesync_contents)  
+     
+</details>
 
 If the contents are the same, then congratulations! You have successfully set up a local NTP server, and Home Assistant has access to it.  
 If the contents aren't the same, you should repeat [the configuration] and make sure you followed the steps correctly.
