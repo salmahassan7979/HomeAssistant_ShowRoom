@@ -329,7 +329,39 @@ media_player:
        universal-port: "UNIVERSAL-PORT"
        video1: "VIDEO1"
        video2: "VIDEO2"
+################################## Samsung tizen Old version #####################
 
+  - platform: samsungtv_tizen   #Family TV
+    name: Family TV
+    host: 192.168.1.4
+
+    mac: F4:FE:FB:36:87:48
+    api_key: 823f9b68-e2bb-43dc-8a3e-bac0a10f42bd   ########## token
+    device_id: 36ce419d-99af-2480-61da-40132cdb9e75 ####### from smartthings URL
+    scan_app_http: false
+    show_channel_number: true
+    update_method: "smartthings"
+    source_list: '{ "Source": "KEY_SOURCE",
+        "TV": "KEY_TV" ,
+        "HDMI": "KEY_HDMI" ,
+        "netflix": "KEY_SOURCE+KEY_RIGHT+KEY_RIGHT+KEY_ENTER" ,
+        "youtube": "KEY_SOURCE+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER" ,   
+        "soptify": "KEY_SOURCE+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER" ,  
+        "prime": "KEY_SOURCE+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_RIGHT+KEY_ENTER" ,  
+         "ONKYO": "ST_HDMI2" ,
+        "AmbientMode": "KEY_AMBIENT" 
+                 }'
+    app_list: '{
+        "YouTube": "111299001912/9Ur5IzDKqV.TizenYouTube",
+        "Spotify": "3201606009684" ,
+        "Netflix": "RN1MCdNq8t.Netflix/11101200001/org.tizen.netflix-app",
+        "Movies & TV Google Play": "3201601007250" ,
+        "Prime Video": "3201512006785/org.tizen.ignition" ,
+        "Deezer": "cexr1qp97S.Deezer" 
+    
+                 }'
+ 
+  
 
 ############ Samsung Tizen TV ############
 samsungtv_smart:
