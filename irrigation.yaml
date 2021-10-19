@@ -1,0 +1,9 @@
+title: ACS
+card_mod:
+  style: |
+    ha-card {
+      color: red;
+    }
+views:
+
+    - !include lovelace/view_garden_irrigation.yaml 
