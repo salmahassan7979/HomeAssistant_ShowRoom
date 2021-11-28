@@ -640,7 +640,8 @@ cover_base:
       - background-image: |
           [[[ 
             var stat = entity.state;                      
-            if (stat === 'open'){
+            if (stat === 'open' || stat === 'opening'){
+
               return 'linear-gradient(to top, #c7c7c7, #ffffff)';
             }else{
               return 'linear-gradient(to top, #454545, #454545)'; 
@@ -667,7 +668,7 @@ cover_base:
         - color: |
             [[[ 
               var stat = entity.state;                      
-              if (stat === 'open'){
+              if (stat === 'open' || stat === 'opening'){
                 return 'black';  
               }else{
                 return '#ffffff'; 
@@ -676,8 +677,9 @@ cover_base:
 
       graph:
         - position: absolute
-        - top: 45px
+        - top: 62px
         - height: 30px
+        - left: -3%  
       stop:
         - position: absolute
         - right: 10%
@@ -700,12 +702,12 @@ cover_base:
       - font-size: 12px
       - justify-self: start
       - position: relative
-      - left: 2px
+      - left: 5px
       - bottom: 20px
       - color: |
           [[[ 
             var stat = entity.state;                      
-            if (stat === 'open'){
+            if (stat === 'open' || stat === 'opening'){
               return 'black';
             
             }else{
@@ -739,19 +741,7 @@ cover_slider_base:
             - box-shadow: none
             - justify-content: center
             - '--mdc-ripple-press-opacity': 0
-          icon:
-            - margin: 0px
-            - color: |
-                [[[ 
-                  var stat = entity.state;                      
-                  if (stat === 'open'){
-                    return '#D43A41';
-                  }else if( stat === 'opening' || stat === 'closing'){                                              
-                    return '#8c8c8c';
-                  }else{
-                    return '#ffffff)'; 
-                  }
-                ]]]
+
           img_cell:
             - justify-content: center
 #########################  cover Button (slider) #######################
@@ -770,6 +760,19 @@ cover_slider:
         entity: >
                 [[[ return entity.entity_id ]]]
         template: cover_slider_base
+        styles:
+          icon:
+            - margin: 0px
+            - color: |
+                [[[ 
+                  var stat = entity.state;                      
+                  if (stat === 'open' || stat === 'opening'){
+                    return '#D43A41';
+                  
+                  }else{
+                    return '#ffffff'; 
+                  }
+                ]]]
         tap_action:
           action: call-service
           service: cover.open_cover
@@ -783,6 +786,19 @@ cover_slider:
         entity: >
                 [[[ return entity.entity_id ]]]
         template: cover_slider_base
+        styles:
+          icon:
+            - margin: 0px
+            - color: |
+                [[[ 
+                  var stat = entity.state;                      
+                  if (stat === 'open' || stat === 'closing'){
+                    return '#D43A41';
+                  
+                  }else{
+                    return '#ffffff'; 
+                  }
+                ]]]
         tap_action:
           action: call-service
           service: cover.close_cover
@@ -796,6 +812,19 @@ cover_slider:
         entity: >
                 [[[ return entity.entity_id ]]]
         template: cover_slider_base
+        styles:
+          icon:
+            - margin: 0px
+            - color: |
+                [[[ 
+                  var stat = entity.state;                      
+                  if (stat === 'open'){
+                    return '#D43A41';
+                  
+                  }else{
+                    return '#ffffff'; 
+                  }
+                ]]]
         tap_action:
           action: call-service
           service: cover.stop_cover
@@ -904,5 +933,134 @@ curtain_icon_switch:
         return 'mdi:blinds'; 
       }
     ]]]
+#########################  Projector icon slider #######################
+projector_icon_slider:
+  template: cover_slider
+  icon: |
+    [[[ 
+      var stat = entity.state;                      
+      if (stat === 'open'){
+        return 'mdi:projector-screen-outline';
+      }else if( stat === 'opening' ){                                              
+        return 'mdi:projector-screen-outline';
+      }else if( stat === 'closing'){                                              
+        return 'mdi:projector-screen-off-outline';
+      }else{
+        return 'mdi:projector-screen-off-outline'; 
+      }
+    ]]]
 
-
+#############################################################
+#########################  Heater KNX #######################
+#############################################################
+heater_base:
+  color_type: icon
+  show_icon: true
+  show_state: true
+  show_name: true
+  icon: |
+    [[[ 
+      var stat = entity.state;                      
+      if (stat === 'on'){
+        return 'mdi:radiator';
+      }else{
+        return 'mdi:radiator-off'; 
+      }
+    ]]]
+  tap_action:
+    action: toggle
+  styles:
+    card:
+      - padding: 5px 5px
+      - border-radius: 6px
+      - height: 170px
+      - width: 245px
+      - background-image: |
+          [[[ 
+            var stat = entity.state;                      
+            if (stat === 'on'){
+              return 'linear-gradient(to top, #c7c7c7, #ffffff)';
+            }else{
+              return 'linear-gradient(to top, #454545, #454545)'; 
+            }
+          ]]]
+    grid:
+      - position: relative
+    custom_fields:
+      toggle-switch:
+        - position: absolute
+        - left: 40%
+        - top: '-2%'
+      time-counter:
+        - position: absolute
+        - font-size: 12px
+        - left: 35%
+        - top: 78%
+      current-temp:
+        - position: absolute
+        - left: 30%
+        - top: 20%
+      graph:
+        - position: absolute
+        - top: 45px
+        - height: 30px
+      stop:
+        - position: absolute
+        - right: 12%
+        - top: 40%
+        - height: 20px
+        - width: 40px
+      arrow-up:
+        - position: absolute
+        - right: 7%
+        - top: 15%
+        - height: 20px
+        - width: 40px
+      arrow-down:
+        - position: absolute
+        - right: 7%
+        - bottom: 25%
+        - height: 20px
+        - width: 40px
+      back-color:
+        - position: absolute
+        - right: '-2%'
+        - bottom: '-3%'
+      select:
+        - position: absolute
+        - left: 5px
+        - top: 75%
+    name:
+      - font-size: 12px
+      - position: relative
+      - left: 5px
+      - bottom: 60px
+      - color: &font-style |
+          [[[ 
+            var stat = entity.state;                      
+            if (stat === 'on'){
+              return 'black';
+            }else{
+              return '#ffffff'; 
+            }
+          ]]]
+    state:
+      - font-size: 9px
+      - position: relative
+      - right: 103px
+      - bottom: 60px
+      - color: *font-style
+    icon:
+      - position: absolute
+      - left: 0%
+      - width: 25%
+      - top: '-35px'
+      - color: |
+          [[[ 
+            var stat = entity.state;                      
+            if (stat === 'on'){
+              return '#D43A41';
+            }else{
+              return '#ffffff'; 
+            }
+          ]]]
