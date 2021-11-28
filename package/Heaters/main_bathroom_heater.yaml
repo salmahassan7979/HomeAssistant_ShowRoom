@@ -1,0 +1,136 @@
+
+#================
+#=== Timer
+#================
+timer:
+
+  main_bathroom_heater:
+    name: main_bathroom_heater
+    icon: mdi:timer-sand
+
+
+
+#==================
+#=== Input  Boolean
+#==================
+
+input_boolean:
+  main_bathroom_heater:
+    name: main_bathroom_heater
+#==================
+#=== Counter
+#==================
+counter:
+
+  main_bathroom_heater:
+    name: main_bathroom_heater
+    minimum: 24
+    maximum: 37
+    step: 1
+
+
+
+#================
+#=== Automations
+#================
+automation:
+
+######################## main_bathroom_heater_base #################
+    - id: main_bathroom_heater_base
+      alias: main_bathroom_heater_base
+      description: ''
+      trigger:
+      - platform: template
+        value_template: ' {{ (states.counter.main_bathroom_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int)
+          }}'
+      - platform: state
+        entity_id: timer.main_bathroom_heater
+        to: active
+      - platform: state
+        entity_id: input_boolean.main_bathroom_heater
+        to: 'on'
+      - platform: state
+        entity_id: input_boolean.main_bathroom_heater
+        to: 'off'
+      - platform: state
+        entity_id: timer.main_bathroom_heater
+        to: idle
+      - platform: template
+        value_template: ' {{ (states.counter.main_bathroom_heater.state|int) > (states.sensor.disk_use_percent_home.state|int)
+          }}'
+      condition: []
+      action:
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ ( not ((states.counter.main_bathroom_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ((is_state("input_boolean.main_bathroom_heater", "on")) or (is_state("timer.main_bathroom_heater",
+              "active")))) or (((states.counter.main_bathroom_heater.state|int) <=(states.sensor.disk_use_percent_home.state|int))
+              and ( not (is_state("input_boolean.main_bathroom_heater", "on"))) and((is_state("timer.main_bathroom_heater",
+              "active"))) ) }}      '
+          sequence:
+          - service: light.turn_on
+            target:
+              entity_id: switch.main_bathroom_heater
+        - conditions:
+          - condition: template
+            value_template: '{{ ( not( not ((states.counter.main_bathroom_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ((is_state("input_boolean.main_bathroom_heater", "on")) or (is_state("timer.main_bathroom_heater",
+              "active")))) or (((states.counter.main_bathroom_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ( not (is_state("input_boolean.main_bathroom_heater", "on"))) and((is_state("timer.main_bathroom_heater",
+              "active"))) )) }} '
+          sequence:
+
+          - service: light.turn_off
+            target:
+              entity_id: switch.main_bathroom_heater
+        default:
+
+        - service: light.turn_off
+          target:
+            entity_id: switch.main_bathroom_heater
+      mode: single
+
+
+############################ toggle_switch ######################
+    - id: main_bathroom_heater_toggle_switch
+      alias: main_bathroom_heater_toggle_switch
+      trigger:
+      - platform: state
+        entity_id: input_boolean.main_bathroom_heater
+        to: 'on'
+        id: '1'
+      - platform: state
+        entity_id: timer.main_bathroom_heater
+        to: idle
+        id: '2'
+      condition: []
+      action:
+      - choose:
+        - conditions:
+          - condition: trigger
+            id: '2'
+          sequence:
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 1
+              milliseconds: 0
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.main_bathroom_heater
+        - conditions:
+          - condition: trigger
+            id: '1'
+          sequence:
+          - service: timer.start
+            data:
+              duration: 00:60:00
+            target:
+              entity_id: timer.main_bathroom_heater
+        default:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.main_bathroom_heater
+      mode: single
+

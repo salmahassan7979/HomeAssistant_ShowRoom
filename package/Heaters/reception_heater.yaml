@@ -1,0 +1,136 @@
+
+#================
+#=== Timer
+#================
+timer:
+
+  reception_heater:
+    name: reception_heater
+    icon: mdi:timer-sand
+
+
+
+#==================
+#=== Input  Boolean
+#==================
+
+input_boolean:
+  reception_heater:
+    name: reception_heater
+#==================
+#=== Counter
+#==================
+counter:
+
+  reception_heater:
+    name: reception_heater
+    minimum: 24
+    maximum: 37
+    step: 1
+
+
+
+#================
+#=== Automations
+#================
+automation:
+
+######################## reception_heater_base #################
+    - id: reception_heater_base
+      alias: reception_heater_base
+      description: ''
+      trigger:
+      - platform: template
+        value_template: ' {{ (states.counter.reception_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int)
+          }}'
+      - platform: state
+        entity_id: timer.reception_heater
+        to: active
+      - platform: state
+        entity_id: input_boolean.reception_heater
+        to: 'on'
+      - platform: state
+        entity_id: input_boolean.reception_heater
+        to: 'off'
+      - platform: state
+        entity_id: timer.reception_heater
+        to: idle
+      - platform: template
+        value_template: ' {{ (states.counter.reception_heater.state|int) > (states.sensor.disk_use_percent_home.state|int)
+          }}'
+      condition: []
+      action:
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ ( not ((states.counter.reception_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ((is_state("input_boolean.reception_heater", "on")) or (is_state("timer.reception_heater",
+              "active")))) or (((states.counter.reception_heater.state|int) <=(states.sensor.disk_use_percent_home.state|int))
+              and ( not (is_state("input_boolean.reception_heater", "on"))) and((is_state("timer.reception_heater",
+              "active"))) ) }}      '
+          sequence:
+          - service: light.turn_on
+            target:
+              entity_id: switch.reception_heater
+        - conditions:
+          - condition: template
+            value_template: '{{ ( not( not ((states.counter.reception_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ((is_state("input_boolean.reception_heater", "on")) or (is_state("timer.reception_heater",
+              "active")))) or (((states.counter.reception_heater.state|int) <= (states.sensor.disk_use_percent_home.state|int))
+              and ( not (is_state("input_boolean.reception_heater", "on"))) and((is_state("timer.reception_heater",
+              "active"))) )) }} '
+          sequence:
+
+          - service: light.turn_off
+            target:
+              entity_id: switch.reception_heater
+        default:
+
+        - service: light.turn_off
+          target:
+            entity_id: switch.reception_heater
+      mode: single
+
+
+############################ toggle_switch ######################
+    - id: reception_heater_toggle_switch
+      alias: reception_heater_toggle_switch
+      trigger:
+      - platform: state
+        entity_id: input_boolean.reception_heater
+        to: 'on'
+        id: '1'
+      - platform: state
+        entity_id: timer.reception_heater
+        to: idle
+        id: '2'
+      condition: []
+      action:
+      - choose:
+        - conditions:
+          - condition: trigger
+            id: '2'
+          sequence:
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 1
+              milliseconds: 0
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.reception_heater
+        - conditions:
+          - condition: trigger
+            id: '1'
+          sequence:
+          - service: timer.start
+            data:
+              duration: 00:60:00
+            target:
+              entity_id: timer.reception_heater
+        default:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.reception_heater
+      mode: single
+
