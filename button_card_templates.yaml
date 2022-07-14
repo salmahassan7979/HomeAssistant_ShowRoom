@@ -499,7 +499,7 @@ fan_style:
 setting:
   tap_action:
     action: navigate
-    navigation_path: /lovelace/setting
+    navigation_path: /profile
   icon: ios:gear
   size: 30px
   styles:
